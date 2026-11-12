@@ -1,0 +1,3473 @@
+﻿<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SMART SCHOOL</title>
+
+  <style>
+    /* ===== RESULT SUBJECT PROFESSIONAL DESIGN ===== */
+
+#resultSubjects {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+#resultSubjects h4 {
+  margin: 18px 0 4px;
+  color: #12366b;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.subject-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+  margin: 8px 0;
+  background: #ffffff;
+  border: 1px solid #dce7f3;
+  border-radius: 12px;
+  color: #263b53;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 7px rgba(20, 55, 90, 0.05);
+  transition: 0.2s ease;
+}
+
+.subject-option:has(input:checked) {
+  background: #edf6ff;
+  border-color: #1682d4;
+}
+
+.subject-option input {
+  width: 18px;
+  height: 18px;
+  accent-color: #0879c9;
+  flex-shrink: 0;
+}
+
+#resultSubjects .notice {
+  padding: 15px;
+  border-radius: 12px;
+  background: #f2f7fc;
+  border: 1px solid #dce8f4;
+  color: #34516e;
+  margin: 8px 0;
+}
+
+#resultApp .panel {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 4px 18px rgba(20, 55, 90, 0.08);
+}
+
+#resultApp .panel h3 {
+  color: #12366b;
+  font-size: 19px;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5edf5;
+}
+    :root {
+      --blue: #0759b7;
+      --navy: #12366b;
+      --teal: #07858b;
+      --bg: #f0f7ff;
+      --text: #19324d;
+      --muted: #65788c;
+      --line: #dce8f4;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #dff3ff, #f7fbff 55%, #e8f8e9);
+      color: var(--text);
+      font-family: Arial, "Noto Sans Devanagari", sans-serif;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .hidden { display: none !important; }
+
+    #app {
+      width: 100%;
+      max-width: 520px;
+      min-height: 100vh;
+      margin: auto;
+      padding: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      color: white;
+      border-radius: 22px;
+      background: linear-gradient(130deg, #092e68, #087eaa, #12a6ad);
+      box-shadow: 0 10px 25px #124e7820;
+      margin-bottom: 14px;
+    }
+
+    .logo {
+      width: 58px;
+      height: 58px;
+      flex-shrink: 0;
+      border: 3px solid #ffdb72;
+      border-radius: 50%;
+      background: white;
+      display: grid;
+      place-items: center;
+      font-size: 34px;
+    }
+
+    .brand h1 { font-size: 19px; margin: 0 0 5px; }
+    .brand p { margin: 0; font-size: 12px; color: #e2faff; }
+
+    .panel {
+      padding: 17px;
+      border-radius: 23px;
+      background: #ffffffed;
+      box-shadow: 0 12px 35px #174d7418;
+      border: 1px solid white;
+    }
+
+    .hero {
+      min-height: 205px;
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px 12px;
+      color: white;
+      background:
+        radial-gradient(circle at 85% 15%, #ffe77d 0 22px, transparent 23px),
+        linear-gradient(180deg, #39b7f0, #b7eaff 65%, #69c16b 65%, #26904a);
+    }
+
+    .hero .students { font-size: 48px; }
+    .hero h2 { margin: 8px 0 4px; color: #12366b; }
+    .hero p { margin: 0; color: #12366b; font-size: 13px; }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--teal);
+    }
+
+    h2 { font-size: 24px; margin: 7px 0; }
+    .muted { color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input, select {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      padding: 13px;
+      border: 1px solid #d3e2ee;
+      border-radius: 13px;
+      background: #f9fcff;
+      color: var(--text);
+      outline-color: var(--teal);
+    }
+
+    .primary, .secondary {
+      border: 0;
+      border-radius: 13px;
+      padding: 13px;
+      font-weight: 700;
+    }
+
+    .primary {
+      width: 100%;
+      margin-top: 17px;
+      color: white;
+      background: linear-gradient(110deg, #087bd4, #0754bd);
+      box-shadow: 0 7px 16px #1469b522;
+    }
+
+    .primary:disabled { opacity: .6; cursor: wait; }
+
+    .secondary {
+      background: #e5f3ff;
+      color: var(--navy);
+    }
+
+    .role-grid, .grid, .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .role-grid { margin-top: 16px; }
+
+    .tile {
+      min-width: 0;
+      min-height: 105px;
+      padding: 12px 7px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: linear-gradient(145deg, white, #eef8ff);
+      color: var(--text);
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .tile-icon { display: block; font-size: 29px; margin-bottom: 8px; }
+    .tile b { display: block; font-size: 13px; line-height: 1.5; }
+    .tile small { display: block; color: var(--muted); font-size: 11px; margin-top: 4px; }
+
+    .headrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .headrow h2 { font-size: 20px; }
+    .headrow .secondary { flex-shrink: 0; }
+
+    .message {
+      margin-top: 12px;
+      padding: 11px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .success { background: #e3f8e8; color: #17652d; }
+    .error { background: #fff0ed; color: #a52e24; }
+
+    .welcome {
+      padding: 17px;
+      margin: 14px 0;
+      border-radius: 17px;
+      background: linear-gradient(120deg, #d8f7e5, #e0f3ff, #fff1d9);
+    }
+
+    .welcome h2 { font-size: 22px; }
+    .welcome p { margin: 5px 0 0; font-size: 13px; }
+
+    .stats { margin: 12px 0 20px; }
+
+    .stat {
+      padding: 14px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+    }
+
+    .stat strong { display: block; font-size: 24px; margin: 8px 0 4px; color: var(--navy); }
+    .stat small { color: var(--muted); font-size: 12px; }
+
+    .section-title { font-size: 16px; margin: 20px 0 10px; }
+
+    .notice {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-top: 9px;
+      font-size: 13px;
+      line-height: 1.6;
+      background: white;
+    }
+
+    .bottomhint {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      margin: 18px 0 5px;
+    }
+
+    @media (max-width: 350px) {
+      #app { padding: 8px; }
+      .panel { padding: 12px; }
+      .brand { padding: 11px; }
+      .brand h1 { font-size: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+<main id="app">
+
+  <header class="brand">
+    <div class="logo">📚</div>
+    <div>
+      <h1>SMART SCHOOL</h1>
+      <p>सीखें • बढ़ें • आगे बढ़ें</p>
+    </div>
+  </header>
+
+  <!-- लॉगिन स्क्रीन -->
+  <section id="login" class="panel">
+    <div class="hero">
+      <div class="students">👧🏻 📖 👦🏻</div>
+      <h2>स्मार्ट स्कूल</h2>
+      <p>ज्ञान • अनुशासन • उज्ज्वल भविष्य</p>
+    </div>
+
+    <p class="muted" style="text-align:center">
+      अपनी भूमिका चुनें और आगे बढ़ें।
+    </p>
+
+    <div class="role-grid">
+      <button class="tile" type="button" onclick="setAuthFlow('teacher','login')">
+        <span class="tile-icon">👨‍🏫</span>
+        <b>शिक्षक लॉगिन</b>
+        <small>पहले से खाता है</small>
+      </button>
+
+      <button class="tile" type="button" onclick="setAuthFlow('teacher','signup')">
+        <span class="tile-icon">📝</span>
+        <b>शिक्षक साइन अप</b>
+        <small>नया खाता बनाएँ</small>
+      </button>
+
+      <button class="tile" type="button" onclick="setAuthFlow('student','login')">
+        <span class="tile-icon">🎒</span>
+        <b>विद्यार्थी लॉगिन</b>
+        <small>पहले से खाता है</small>
+      </button>
+
+      <button class="tile" type="button" onclick="setAuthFlow('student','signup')">
+        <span class="tile-icon">📚</span>
+        <b>विद्यार्थी साइन अप</b>
+        <small>नया खाता बनाएँ</small>
+      </button>
+    </div>
+
+    <div id="authForm" class="hidden" style="margin-top:22px;border-top:1px solid #edf0f8;padding-top:17px">
+      <div class="headrow">
+        <div>
+          <div id="authEyebrow" class="eyebrow">लॉगिन</div>
+          <h2 id="authTitle">लॉगिन करें</h2>
+        </div>
+        <button class="secondary" type="button" onclick="hideAuthForm()">← वापस</button>
+      </div>
+
+      <div id="authFields"></div>
+      <div id="authMessage" class="hidden"></div>
+      <button id="submitBtn" class="primary" type="button" onclick="submitAuth()">लॉगिन करें</button>
+    </div>
+
+    <p class="bottomhint">“शिक्षा ही सफलता की कुंजी है।”</p>
+  </section>
+
+  <!-- डैशबोर्ड -->
+  <section id="menu" class="hidden">
+    <div class="headrow">
+      <div>
+        <div id="roleLabel" class="eyebrow">डैशबोर्ड</div>
+        <h2 id="welcome">नमस्ते!</h2>
+      </div>
+      <button class="secondary" type="button" onclick="logout()">लॉगआउट</button>
+    </div>
+
+    <div class="welcome">
+      <div class="eyebrow">SMART SCHOOL</div>
+      <h2 id="welcomeTitle">आपका डैशबोर्ड</h2>
+      <p id="menuHint">स्कूल की सुविधाएँ एक जगह</p>
+    </div>
+
+    <div id="stats" class="stats">
+      <div class="stat">
+        <span>👩‍🎓</span>
+        <strong id="studentCount">—</strong>
+        <small>विद्यार्थी रिकॉर्ड</small>
+      </div>
+      <div class="stat">
+        <span>📅</span>
+        <strong id="attendanceCount">—</strong>
+        <small>उपस्थिति रिकॉर्ड</small>
+      </div>
+    </div>
+
+    <h3 class="section-title">त्वरित सुविधाएँ</h3>
+    <div id="tiles" class="grid">
+      <button class="tile" data-page="search">
+        <span class="tile-icon">🔎</span><b>विद्यार्थी खोज</b>
+        <small>विद्यार्थी विवरण</small>
+      </button>
+      <button class="tile" data-page="attendance">
+        <span class="tile-icon">🗓️</span><b>उपस्थिति</b>
+        <small>हाजिरी प्रबंधन</small>
+      </button>
+      <button class="tile" data-page="goswara">
+        <span class="tile-icon">📊</span><b>गोस्वारा रिपोर्ट</b>
+        <small>कक्षा की रिपोर्ट</small>
+      </button>
+      <button class="tile" data-page="teacher">
+        <span class="tile-icon">👨‍🏫</span><b>शिक्षक विवरण</b>
+        <small>स्टाफ जानकारी</small>
+      </button>
+      <button class="tile" data-page="result">
+        <span class="tile-icon">📝</span><b>परीक्षा परिणाम</b>
+        <small>अंक और परिणाम</small>
+      </button>
+      <button class="tile" data-page="notice">
+        <span class="tile-icon">📢</span><b>सूचना बोर्ड</b>
+        <small>स्कूल की सूचनाएँ</small>
+      </button>
+      <button class="tile" data-page="homework">
+        <span class="tile-icon">📚</span><b>गृहकार्य व नोट्स</b>
+        <small>पढ़ाई की सामग्री</small>
+      </button>
+      <button class="tile" data-page="timetable">
+        <span class="tile-icon">⏰</span><b>समय-सारणी</b>
+        <small>कक्षा कार्यक्रम</small>
+      </button>
+    </div>
+
+    <h3 class="section-title">स्कूल अपडेट</h3>
+    <div class="notice">
+      <b>📌 स्वागत है</b><br>
+      स्कूल की नई सूचनाएँ यहाँ दिखाई जा सकती हैं।
+    </div>
+  </section>
+
+  <!-- सुविधा पृष्ठ -->
+  <section id="subpage" class="panel hidden">
+    <div class="headrow">
+      <div>
+        <div class="eyebrow">SMART SCHOOL</div>
+        <h2 id="pageTitle">विभाग</h2>
+      </div>
+      <button class="secondary" type="button" onclick="goMenu()">← मेनू</button>
+    </div>
+    <p id="pageDesc" class="muted"></p>
+    <div id="pageContent"></div>
+    <button class="primary" type="button" onclick="goMenu()">डैशबोर्ड पर वापस जाएँ</button>
+  </section>
+
+  <p class="bottomhint">SMART SCHOOL • शिक्षा और प्रगति</p>
+</main>
+
+<script>
+  var currentRole = 'teacher';
+  var sessionToken = '';
+  var authMode = 'login';
+  var currentUser = '';
+  var currentPage = '';
+  var busy = false;
+
+  var pages = {
+    search: ['विद्यार्थी खोज', 'नाम, रोल नंबर या पंजीयन क्रमांक से खोजें।',
+  '<label for="studentQuery">विद्यार्थी का नाम, रोल नंबर या पंजीयन क्रमांक</label>' +
+  '<input id="studentQuery" placeholder="नाम / रोल नंबर / पंजीयन क्रमांक">' +
+  '<button class="primary" type="button" onclick="runStudentSearch()">खोजें</button>' +
+  '<div id="studentSearchMessage" class="noticeitem"></div>' +
+  '<div id="studentResults"></div>'],
+attendance: ['विद्यार्थी उपस्थिति', 'कक्षा और तारीख चुनकर दैनिक उपस्थिति दर्ज करें।',
+  '<label for="attDate">तारीख</label><input id="attDate" type="date"><label for="attClass">कक्षा</label><select id="attClass"><option value="9">कक्षा 9</option><option value="10">कक्षा 10</option><option value="11">कक्षा 11</option><option value="12">कक्षा 12</option></select><button class="primary" type="button" onclick="startAttendance()">उपस्थिति शुरू करें</button><div id="attMessage" class="noticeitem hidden"></div><div id="attStudentBox" class="noticeitem hidden"></div>'],
+
+    goswara: ['गोस्वारा रिपोर्ट', 'विद्यार्थियों की कक्षावार एवं वर्गवार जानकारी।', 
+  '<div id="goswaraContent" class="notice">गोस्वारा रिपोर्ट लोड हो रही है...</div>'],
+
+
+teacher: [
+  'शिक्षक विवरण',
+  'स्कूल के सभी शिक्षकों की जानकारी देखें।',
+  '<div id="teacherDetailsMessage" class="noticeitem">शिक्षक विवरण लोड हो रहा है…</div>' +
+  '<div id="teacherDetailsResults"></div>'
+],
+
+    result: ['परीक्षा परिणाम', 'परीक्षा परिणाम प्रबंधन और प्रकाशित परिणाम देखने की सुविधा।',
+  '<div id="resultApp"><div class="notice">परीक्षा परिणाम सुविधा लोड हो रही है...</div></div>'],
+
+    notice: ['सूचना बोर्ड', 'स्कूल की घोषणाएँ और संदेश।',
+      '<div class="notice">सूचना बोर्ड का वास्तविक डेटा जोड़ने के लिए Notice Board शीट से रिकॉर्ड पढ़ने होंगे।</div>'],
+
+    homework: ['गृहकार्य व नोट्स', 'कक्षा के अनुसार अध्ययन सामग्री।',
+      '<label>कक्षा</label><select><option>कक्षा 9</option><option>कक्षा 10</option><option>कक्षा 11</option><option>कक्षा 12</option></select><label>विषय</label><input placeholder="विषय का नाम"><div class="notice">गृहकार्य और नोट्स का डेटा कनेक्शन अभी अलग से जोड़ना होगा।</div>'],
+
+    timetable: ['समय-सारणी', 'कक्षा का टाइम-टेबल।',
+      '<div class="notice">समय-सारणी दिखाने के लिए टाइम-टेबल डेटा स्रोत आवश्यक है।</div>']
+  };
+
+  function showScreen(id) {
+    ['login', 'menu', 'subpage'].forEach(function(name) {
+      document.getElementById(name).classList.add('hidden');
+    });
+    document.getElementById(id).classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function showMessage(text, success) {
+    var el = document.getElementById('authMessage');
+    el.textContent = text;
+    el.className = 'message ' + (success ? 'success' : 'error');
+  }
+
+  function clearMessage() {
+    var el = document.getElementById('authMessage');
+    el.textContent = '';
+    el.className = 'hidden';
+  }
+
+  function setAuthFlow(role, mode) {
+    currentRole = role;
+    document.getElementById('submitBtn').onclick = submitAuth;
+    authMode = mode;
+    document.getElementById('authForm').classList.remove('hidden');
+    document.getElementById('authEyebrow').textContent =
+      role === 'teacher' ? '👨‍🏫 शिक्षक' : '🎒 विद्यार्थी';
+    document.getElementById('authTitle').textContent =
+      mode === 'login' ? 'लॉगिन करें' : 'नया साइन अप';
+    document.getElementById('submitBtn').classList.remove('hidden');
+    document.getElementById('submitBtn').textContent =
+      mode === 'login' ? 'लॉगिन करें →' : 'खाता बनाएँ →';
+    clearMessage();
+    renderAuthFields();
+    document.getElementById('authForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function hideAuthForm() {
+    document.getElementById('authForm').classList.add('hidden');
+    clearMessage();
+  }
+
+  function renderAuthFields() {
+    var el = document.getElementById('authFields');
+
+    if (currentRole === 'teacher') {
+      el.innerHTML =
+        '<label for="identity">शिक्षक आईडी</label>' +
+        '<input id="identity" autocomplete="username" placeholder="शिक्षक आईडी भरें">' +
+        '<label for="password">पासवर्ड</label>' +
+        '<input id="password" type="password" autocomplete="' +
+        (authMode === 'login' ? 'current-password' : 'new-password') +
+        '" placeholder="पासवर्ड भरें">' +
+        (authMode === 'signup'
+          ? '<label for="password2">पासवर्ड फिर लिखें</label><input id="password2" type="password" autocomplete="new-password" placeholder="पासवर्ड दोबारा भरें">'
+          : '');
+    } else if (authMode === 'login') {
+      el.innerHTML =
+        '<label for="identity">पंजीकृत मोबाइल नंबर</label>' +
+        '<input id="identity" type="tel" inputmode="numeric" autocomplete="username" placeholder="10 अंकों का मोबाइल नंबर">' +
+        '<label for="password">पासवर्ड</label>' +
+        '<input id="password" type="password" autocomplete="current-password" placeholder="पासवर्ड भरें">';
+    } else {
+      el.innerHTML =
+        '<label for="studentName">विद्यार्थी का पूरा नाम</label>' +
+        '<input id="studentName" autocomplete="name" placeholder="स्कूल रिकॉर्ड के अनुसार नाम">' +
+        '<label for="fatherName">पिता का पूरा नाम</label>' +
+        '<input id="fatherName" placeholder="पिता का नाम">' +
+        '<label for="identity">मोबाइल नंबर</label>' +
+        '<input id="identity" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 अंकों का मोबाइल नंबर">' +
+        '<label for="password">नया पासवर्ड</label>' +
+        '<input id="password" type="password" autocomplete="new-password" placeholder="नया पासवर्ड">' +
+        '<label for="password2">पासवर्ड फिर लिखें</label>' +
+        '<input id="password2" type="password" autocomplete="new-password" placeholder="पासवर्ड दोबारा भरें">';
+    }
+
+    if (authMode === 'login') {
+      el.innerHTML +=
+        '<button type="button" class="secondary" style="margin-top:13px;width:100%" onclick="showForgotPassword()">पासवर्ड भूल गए?</button>';
+    }
+  }
+
+ 
+
+function callServer(method, args, callback) {
+  if (typeof google === 'undefined' || !google.script || !google.script.run) {
+    callback({
+      success: false,
+      message: 'सर्वर कनेक्शन उपलब्ध नहीं है। Apps Script का वेब ऐप URL खोलें।'
+    });
+    return;
+  }
+
+  var runner = google.script.run
+    .withSuccessHandler(function(result) {
+      callback(result || {
+        success: false,
+        message: 'सर्वर से कोई उत्तर नहीं मिला।'
+      });
+    })
+    .withFailureHandler(function(error) {
+      callback({
+        success: false,
+        message: error && error.message
+          ? error.message
+          : 'सर्वर पर त्रुटि हुई।'
+      });
+    });
+
+  if (method === 'loginUser') {
+    runner.loginUser.apply(runner, args);
+  } else if (method === 'signupTeacher') {
+    runner.signupTeacher.apply(runner, args);
+  } else if (method === 'signupStudent') {
+    runner.signupStudent.apply(runner, args);
+  } else if (method === 'resetPassword') {
+    runner.resetPassword.apply(runner, args);
+  } else if (method === 'searchStudents') {
+    runner.searchStudents.apply(runner, args);
+  } else if (method === 'getTeacherDetails') {
+    runner.getTeacherDetails.apply(runner, args);
+  } else if (method === 'getSchoolData') {
+    runner.getSchoolData();
+  } else if (method === 'getAttendanceStudents') {
+    runner.getAttendanceStudents.apply(runner, args);
+  } else if (method === 'saveStudentAttendance') {
+    runner.saveStudentAttendance.apply(runner, args);
+  } else if (method === 'getAbsentStudents') {
+    runner.getAbsentStudents.apply(runner, args);
+  } else if (method === 'getGoswaraData') {
+    runner.getGoswaraData.apply(runner, args);
+  } else if (method === 'saveResultSetting') {
+    runner.saveResultSetting.apply(runner, args);  
+
+  } else if (method === 'getResultSubjects') {
+    runner.getResultSubjects.apply(runner, args);
+  } else if (method === 'getResultStudents') {
+    runner.getResultStudents.apply(runner, args);
+  } else if (method === 'getResultSettings') {
+    runner.getResultSettings.apply(runner, args);
+  } else if (method === 'getResultSubjectSettings') {
+    runner.getResultSubjectSettings.apply(runner, args);
+  } else if (method === 'saveResultSubjectSettings') {
+    runner.saveResultSubjectSettings.apply(runner, args);
+  } else if (method === 'saveResultMarks') {
+    runner.saveResultMarks.apply(runner, args);
+  } else if (method === 'getResultMarksForTeacher') {
+    runner.getResultMarksForTeacher.apply(runner, args);
+  } else if (method === 'publishResult') {
+    runner.publishResult.apply(runner, args);
+  } else if (method === 'getPublishedResultForStudent') {
+    runner.getPublishedResultForStudent.apply(runner, args);
+  } else if (method === 'setResultLockStatus') {
+    runner.setResultLockStatus.apply(runner, args);
+
+  } else {
+    callback({
+      success: false,
+      message: 'अज्ञात सर्वर फ़ंक्शन: ' + method
+    });
+  }
+}
+
+
+  function submitAuth() {
+    if (busy) return;
+
+    var identity = (document.getElementById('identity') || {}).value || '';
+    var password = (document.getElementById('password') || {}).value || '';
+    var password2 = (document.getElementById('password2') || {}).value || '';
+
+    identity = identity.trim();
+
+    if (!identity || !password) {
+      showMessage('कृपया सभी जरूरी जानकारी भरें।', false);
+      return;
+    }
+
+    if (authMode === 'signup' && password !== password2) {
+      showMessage('दोनों पासवर्ड मेल नहीं खाते।', false);
+      return;
+    }
+
+    if (authMode === 'signup' && password.length < 6) {
+      showMessage('पासवर्ड कम से कम 6 अक्षरों का रखें।', false);
+      return;
+    }
+
+    var method, args;
+
+    if (authMode === 'login') {
+      method = 'loginUser';
+      args = [currentRole, identity, password];
+    } else if (currentRole === 'teacher') {
+      method = 'signupTeacher';
+      args = [identity, password];
+    } else {
+      var name = document.getElementById('studentName').value.trim();
+      var father = document.getElementById('fatherName').value.trim();
+
+      if (!name || !father) {
+        showMessage('विद्यार्थी और पिता का पूरा नाम भरें।', false);
+        return;
+      }
+
+      if (!/^\d{10}$/.test(identity)) {
+        showMessage('10 अंकों का मोबाइल नंबर भरें।', false);
+        return;
+      }
+
+      method = 'signupStudent';
+      args = [name, father, identity, password];
+    }
+
+    busy = true;
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'कृपया प्रतीक्षा करें…';
+    clearMessage();
+
+    callServer(method, args, function(result) {
+      busy = false;
+      btn.disabled = false;
+      btn.textContent = authMode === 'login' ? 'लॉगिन करें →' : 'खाता बनाएँ →';
+
+      if (!result.success) {
+        showMessage(result.message || 'कार्य पूरा नहीं हुआ।', false);
+        return;
+      }
+
+      if (authMode === 'signup') {
+        showMessage(result.message + ' अब लॉगिन करें।', true);
+        authMode = 'login';
+        document.getElementById('authTitle').textContent = 'लॉगिन करें';
+        btn.textContent = 'लॉगिन करें →';
+        renderAuthFields();
+        return;
+      }
+
+      currentUser = result.name || identity;
+      currentRole = result.role || currentRole;
+      sessionToken = result.sessionToken || '';
+      enterDashboard();
+    });
+  }
+
+  function showForgotPassword() {
+    authMode = 'reset';
+    document.getElementById('authTitle').textContent = 'पासवर्ड रीसेट';
+    clearMessage();
+
+    document.getElementById('authFields').innerHTML =
+      '<label for="resetIdentity">' +
+      (currentRole === 'teacher' ? 'शिक्षक आईडी' : 'पंजीकृत मोबाइल नंबर') +
+      '</label>' +
+      '<input id="resetIdentity" autocomplete="username" placeholder="' +
+      (currentRole === 'teacher' ? 'शिक्षक आईडी भरें' : '10 अंकों का मोबाइल नंबर') + '">' +
+      '<label for="resetCode">स्कूल रीसेट कोड</label>' +
+      '<input id="resetCode" type="password" autocomplete="off" placeholder="गोपनीय रीसेट कोड">' +
+      '<label for="newPassword">नया पासवर्ड</label>' +
+      '<input id="newPassword" type="password" autocomplete="new-password" placeholder="नया पासवर्ड">' +
+      '<label for="newPassword2">नया पासवर्ड फिर लिखें</label>' +
+      '<input id="newPassword2" type="password" autocomplete="new-password" placeholder="पासवर्ड दोबारा भरें">';
+
+    document.getElementById('submitBtn').textContent = 'पासवर्ड बदलें';
+    document.getElementById('submitBtn').onclick = resetPasswordNow;
+    document.getElementById('submitBtn').onclick = resetPasswordNow;
+  }
+
+  function resetPasswordNow() {
+    if (busy) return;
+
+    var identity = document.getElementById('resetIdentity').value.trim();
+    var code = document.getElementById('resetCode').value;
+    var password = document.getElementById('newPassword').value;
+    var password2 = document.getElementById('newPassword2').value;
+
+    if (!identity || !code || !password || !password2) {
+      showMessage('सभी जानकारी भरें।', false);
+      return;
+    }
+
+    if (password !== password2) {
+      showMessage('दोनों पासवर्ड मेल नहीं खाते।', false);
+      return;
+    }
+
+    if (password.length < 6) {
+      showMessage('नया पासवर्ड कम से कम 6 अक्षरों का रखें।', false);
+      return;
+    }
+
+    busy = true;
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'पासवर्ड बदला जा रहा है…';
+
+    callServer('resetPassword', [currentRole, identity, code, password], function(result) {
+      busy = false;
+      btn.disabled = false;
+
+      if (!result.success) {
+        btn.textContent = 'पासवर्ड बदलें';
+        showMessage(result.message || 'पासवर्ड नहीं बदला।', false);
+        return;
+      }
+
+      showMessage(result.message || 'पासवर्ड बदल गया।', true);
+      authMode = 'login';
+      renderAuthFields();
+      btn.onclick = submitAuth;
+      btn.textContent = 'लॉगिन करें →';
+      document.getElementById('authTitle').textContent = 'लॉगिन करें';
+    });
+  }
+
+  function enterDashboard() {
+    document.getElementById('welcome').textContent = 'नमस्ते, ' + currentUser;
+    document.getElementById('roleLabel').textContent =
+      currentRole === 'teacher' ? 'शिक्षक डैशबोर्ड' : 'विद्यार्थी डैशबोर्ड';
+
+    document.getElementById('welcomeTitle').textContent =
+      currentRole === 'teacher' ? 'स्कूल प्रबंधन केंद्र' : 'आपका अध्ययन केंद्र';
+
+    document.getElementById('menuHint').textContent =
+      currentRole === 'teacher'
+        ? 'स्कूल प्रबंधन की सुविधाएँ'
+        : 'आपकी पढ़ाई और स्कूल की सूचनाएँ';
+
+    document.getElementById('stats').classList.toggle('hidden', currentRole !== 'teacher');
+
+    document.querySelectorAll('[data-page]').forEach(function(btn) {
+      var key = btn.getAttribute('data-page');
+      btn.classList.toggle('hidden', currentRole === 'student' && key === 'teacher');
+    });
+
+    showScreen('menu');
+    history.pushState({ screen: 'menu' }, '', '#menu');
+
+    if (currentRole === 'teacher') {
+      callServer('getSchoolData', [], function(result) {
+        if (result && result.success) {
+          document.getElementById('studentCount').textContent = result.students;
+          document.getElementById('attendanceCount').textContent = result.attendance;
+        }
+      });
+    }
+  }
+
+function loadTeacherDetails() {
+  var msg = document.getElementById('teacherDetailsMessage');
+  var results = document.getElementById('teacherDetailsResults');
+
+  if (!msg || !results) return;
+
+  results.innerHTML = '';
+  msg.textContent = 'शिक्षक सूची लोड हो रही है…';
+
+  if (currentRole !== 'teacher') {
+    msg.textContent = 'यह सुविधा केवल शिक्षक के लिए है।';
+    return;
+  }
+
+  if (!sessionToken) {
+    msg.textContent = 'लॉगिन सत्र नहीं मिला। कृपया दोबारा लॉगिन करें।';
+    return;
+  }
+
+  callServer('getTeacherDetails', [sessionToken], function(result) {
+    if (!result || !result.success) {
+      msg.textContent = result && result.message
+        ? result.message
+        : 'शिक्षक विवरण लोड नहीं हो पाया।';
+      return;
+    }
+
+    var headers = result.headers || [];
+    var teachers = result.teachers || [];
+
+    if (!teachers.length) {
+      msg.textContent = result.message || 'कोई शिक्षक रिकॉर्ड नहीं मिला।';
+      return;
+    }
+
+    msg.textContent = 'कुल शिक्षक: ' + teachers.length;
+
+    function showTeacherList() {
+      results.innerHTML = '';
+
+      teachers.forEach(function(row, index) {
+        var card = document.createElement('button');
+        card.type = 'button';
+        card.style.cssText =
+          'display:flex;align-items:center;gap:12px;width:100%;' +
+          'text-align:left;padding:15px;margin:10px 0;' +
+          'border:1px solid #dce8f4;border-radius:16px;' +
+          'background:linear-gradient(135deg,#fff,#eef8ff);' +
+          'color:#173454;cursor:pointer;';
+
+        var icon = document.createElement('span');
+        icon.textContent = '👨‍🏫';
+        icon.style.fontSize = '25px';
+
+        var name = document.createElement('span');
+        name.textContent = row[0] || ('शिक्षक ' + (index + 1));
+        name.style.cssText =
+          'font-size:16px;font-weight:700;flex:1;';
+
+        var arrow = document.createElement('span');
+        arrow.textContent = '›';
+        arrow.style.cssText = 'font-size:26px;color:#087e8b;';
+
+        card.appendChild(icon);
+        card.appendChild(name);
+        card.appendChild(arrow);
+
+        card.onclick = function() {
+          showTeacherProfile(row);
+        };
+
+        results.appendChild(card);
+      });
+    }
+
+    function showTeacherProfile(row) {
+      results.innerHTML = '';
+
+      var profile = document.createElement('div');
+      profile.style.cssText =
+        'padding:18px;border:1px solid #dce8f4;' +
+        'border-radius:20px;background:#fff;';
+
+      var heading = document.createElement('div');
+      heading.style.cssText =
+        'padding:18px 10px;text-align:center;' +
+        'background:linear-gradient(135deg,#e3f6ff,#e7fff0);' +
+        'border-radius:16px;margin-bottom:16px;';
+
+      var avatar = document.createElement('div');
+      avatar.textContent = '👨‍🏫';
+      avatar.style.fontSize = '42px';
+
+      var title = document.createElement('h2');
+      title.textContent = row[0] || 'शिक्षक विवरण';
+      title.style.cssText = 'margin:8px 0;color:#123b78;';
+
+      heading.appendChild(avatar);
+      heading.appendChild(title);
+      profile.appendChild(heading);
+
+      headers.forEach(function(header, colIndex) {
+        var item = document.createElement('div');
+        item.style.cssText =
+          'padding:12px 10px;margin:8px 0;' +
+          'border:1px solid #e1edf5;border-radius:12px;' +
+          'background:#f8fcff;';
+
+        var label = document.createElement('div');
+        label.textContent = header;
+        label.style.cssText =
+          'font-size:12px;color:#647b92;margin-bottom:5px;';
+
+        var value = document.createElement('div');
+        value.textContent =
+          row[colIndex] == null || row[colIndex] === ''
+            ? '—'
+            : row[colIndex];
+        value.style.cssText =
+          'font-size:15px;font-weight:600;overflow-wrap:anywhere;';
+
+        item.appendChild(label);
+        item.appendChild(value);
+        profile.appendChild(item);
+      });
+
+      var back = document.createElement('button');
+      back.type = 'button';
+      back.textContent = '← शिक्षक सूची में वापस जाएँ';
+      back.style.cssText =
+        'width:100%;padding:14px;margin-top:14px;' +
+        'border:0;border-radius:12px;background:#0879d4;' +
+        'color:white;font-weight:700;cursor:pointer;';
+
+      back.onclick = showTeacherList;
+      profile.appendChild(back);
+      results.appendChild(profile);
+    }
+
+    showTeacherList();
+  });
+}
+
+function loadGoswaraData() {
+  var content = document.getElementById('goswaraContent');
+
+  if (!content) return;
+
+  content.innerHTML = 'गोस्वारा रिपोर्ट लोड हो रही है...';
+
+  if (!sessionToken) {
+    content.innerHTML = 'शिक्षक लॉगिन समाप्त है। दोबारा लॉगिन करें।';
+    return;
+  }
+
+  callServer('getGoswaraData', [sessionToken], function(result) {
+    if (!result || !result.success) {
+      content.innerHTML = result && result.message
+        ? result.message
+        : 'गोस्वारा डेटा प्राप्त नहीं हुआ।';
+      return;
+    }
+
+    var students = result.students || [];
+    var classes = result.classes || [];
+    var summary = result.summary || {};
+
+    var currentView = 'overall';
+    var selectedClass = null;
+    var selectedTitle = '';
+
+    function safe(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function metricButton(label, key, value, className) {
+      return `
+        <button type="button"
+          data-action="metric"
+          data-key="${key}"
+          data-class="${className || ''}"
+          style="border:1px solid #d8e5f5;background:#fff;
+          border-radius:10px;padding:12px 8px;text-align:center;
+          cursor:pointer;min-width:0;width:100%;">
+          <div style="font-size:13px;color:#52657d;">${label}</div>
+          <div style="font-size:23px;font-weight:700;color:#0759b7;">
+            ${Number(value || 0)}
+          </div>
+          <div style="font-size:11px;color:#07858b;">विद्यार्थी देखें</div>
+        </button>`;
+    }
+
+    function summaryHTML(data, className) {
+      var metrics = [
+        ['कुल विद्यार्थी', 'total'],
+        ['बालक', 'boys'],
+        ['बालिका', 'girls'],
+        ['ST बालक', 'stBoys'],
+        ['ST बालिका', 'stGirls'],
+        ['SC बालक', 'scBoys'],
+        ['SC बालिका', 'scGirls'],
+        ['OBC बालक', 'obcBoys'],
+        ['OBC बालिका', 'obcGirls'],
+        ['PVTG बालक', 'pvtgBoys'],
+        ['PVTG बालिका', 'pvtgGirls']
+      ];
+
+      return `
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:9px;margin-top:12px;">
+          ${metrics.map(function(item) {
+            return metricButton(
+              item[0],
+              item[1],
+              data[item[1]],
+              className || ''
+            );
+          }).join('')}
+        </div>`;
+    }
+
+    function renderOverall() {
+      currentView = 'overall';
+      selectedClass = null;
+
+      content.innerHTML = `
+        <div style="font-weight:700;font-size:18px;color:#12366b;">
+          संपूर्ण विद्यालय गोस्वारा
+        </div>
+        ${summaryHTML(summary, '')}
+        <h3 style="margin:22px 0 10px;color:#12366b;">
+          कक्षावार गोस्वारा
+        </h3>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;">
+          ${classes.map(function(item) {
+            return `
+              <button type="button" data-action="class"
+                data-class="${safe(item.className)}"
+                style="padding:17px 10px;border:1px solid #cbdcf2;
+                border-radius:12px;background:#edf5ff;
+                color:#12366b;font-size:17px;font-weight:700;cursor:pointer;">
+                कक्षा ${safe(item.className)}
+                <div style="font-size:13px;margin-top:5px;">
+                  कुल विद्यार्थी: ${Number(item.summary.total || 0)}
+                </div>
+                <div style="font-size:11px;color:#07858b;margin-top:5px;">
+                  विवरण देखें
+                </div>
+              </button>`;
+          }).join('')}
+        </div>`;
+    }
+
+    function renderClass(className) {
+      var item = classes.find(function(c) {
+        return String(c.className) === String(className);
+      });
+
+      if (!item) return;
+
+      currentView = 'class';
+      selectedClass = String(className);
+
+      content.innerHTML = `
+        <button type="button" data-action="back"
+          style="padding:9px 16px;border:0;border-radius:8px;
+          background:#0759b7;color:white;cursor:pointer;margin-bottom:14px;">
+          ← वापस
+        </button>
+        <h3 style="color:#12366b;margin:0 0 8px;">
+          कक्षा ${safe(item.className)} का गोस्वारा
+        </h3>
+        ${summaryHTML(item.summary, item.className)}`;
+    }
+
+    function renderStudents(key, className) {
+      var list = students.filter(function(s) {
+        var classMatch = !className ||
+          String(s.className) === String(className);
+
+        if (!classMatch) return false;
+
+        if (key === 'total') return true;
+        if (key === 'boys') return s.gender === 'boys';
+        if (key === 'girls') return s.gender === 'girls';
+
+        if (key === 'stBoys') return s.category === 'ST' && s.gender === 'boys';
+        if (key === 'stGirls') return s.category === 'ST' && s.gender === 'girls';
+
+        if (key === 'scBoys') return s.category === 'SC' && s.gender === 'boys';
+        if (key === 'scGirls') return s.category === 'SC' && s.gender === 'girls';
+
+        if (key === 'obcBoys') return s.category === 'OBC' && s.gender === 'boys';
+        if (key === 'obcGirls') return s.category === 'OBC' && s.gender === 'girls';
+
+        if (key === 'pvtgBoys') return s.category === 'PVTG' && s.gender === 'boys';
+        if (key === 'pvtgGirls') return s.category === 'PVTG' && s.gender === 'girls';
+
+        return false;
+      });
+
+      var labels = {
+        total: 'कुल विद्यार्थी',
+        boys: 'बालक',
+        girls: 'बालिका',
+        stBoys: 'ST बालक',
+        stGirls: 'ST बालिका',
+        scBoys: 'SC बालक',
+        scGirls: 'SC बालिका',
+        obcBoys: 'OBC बालक',
+        obcGirls: 'OBC बालिका',
+        pvtgBoys: 'PVTG बालक',
+        pvtgGirls: 'PVTG बालिका'
+      };
+
+      currentView = 'students';
+      selectedTitle = labels[key] || 'विद्यार्थी सूची';
+
+      content.innerHTML = `
+        <button type="button" data-action="back"
+          style="padding:9px 16px;border:0;border-radius:8px;
+          background:#0759b7;color:white;cursor:pointer;margin-bottom:14px;">
+          ← वापस
+        </button>
+        <h3 style="color:#12366b;margin:0 0 5px;">
+          ${safe(selectedTitle)}
+          ${className ? ' — कक्षा ' + safe(className) : ''}
+        </h3>
+        <div style="color:#07858b;margin-bottom:12px;">
+          कुल विद्यार्थी: ${list.length}
+        </div>
+        ${list.length ? `
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+              <thead>
+                <tr style="background:#eaf2fc;">
+                  <th style="padding:9px;border:1px solid #d8e2ef;">क्र.</th>
+                  <th style="padding:9px;border:1px solid #d8e2ef;">रोल नंबर</th>
+                  <th style="padding:9px;border:1px solid #d8e2ef;">विद्यार्थी का नाम</th>
+                  <th style="padding:9px;border:1px solid #d8e2ef;">पिता का नाम</th>
+                  <th style="padding:9px;border:1px solid #d8e2ef;">कक्षा</th>
+                  <th style="padding:9px;border:1px solid #d8e2ef;">वर्ग</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${list.map(function(s, i) {
+                  return `
+                    <tr>
+                      <td style="padding:8px;border:1px solid #d8e2ef;">${i + 1}</td>
+                      <td style="padding:8px;border:1px solid #d8e2ef;">${safe(s.roll)}</td>
+                      <td style="padding:8px;border:1px solid #d8e2ef;">${safe(s.name)}</td>
+                      <td style="padding:8px;border:1px solid #d8e2ef;">${safe(s.father)}</td>
+                      <td style="padding:8px;border:1px solid #d8e2ef;">${safe(s.className)}</td>
+                      <td style="padding:8px;border:1px solid #d8e2ef;">${safe(s.category)}</td>
+                    </tr>`;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>` : '<div class="notice">इस श्रेणी में कोई विद्यार्थी नहीं मिला।</div>'}`;
+    }
+
+    content.onclick = function(event) {
+      var button = event.target.closest('button[data-action]');
+      if (!button) return;
+
+      var action = button.getAttribute('data-action');
+
+      if (action === 'class') {
+        renderClass(button.getAttribute('data-class'));
+      } else if (action === 'metric') {
+        renderStudents(
+          button.getAttribute('data-key'),
+          button.getAttribute('data-class')
+        );
+      } else if (action === 'back') {
+        if (currentView === 'students') {
+          if (selectedClass) {
+            renderClass(selectedClass);
+          } else {
+            renderOverall();
+          }
+        } else if (currentView === 'class') {
+          renderOverall();
+        }
+      }
+    };
+
+    renderOverall();
+  });
+}
+
+var attendanceStudents = [];
+var attendanceRecords = [];
+var attendanceIndex = 0;
+var attendanceDate = '';
+var attendanceClass = '';
+
+function startAttendance() {
+  attendanceDate = document.getElementById('attDate').value;
+  attendanceClass = document.getElementById('attClass').value;
+
+  var message = document.getElementById('attMessage');
+  var box = document.getElementById('attStudentBox');
+
+  if (!attendanceDate) {
+    message.textContent = 'कृपया तारीख चुनें।';
+    message.classList.remove('hidden');
+    return;
+  }
+
+  message.textContent = 'विद्यार्थियों की सूची लोड हो रही है...';
+  message.classList.remove('hidden');
+  box.classList.add('hidden');
+
+  callServer('getAttendanceStudents',
+    [sessionToken, attendanceClass], function(result) {
+      if (!result || !result.success) {
+        message.textContent = result && result.message
+          ? result.message : 'विद्यार्थियों की सूची नहीं मिली।';
+        return;
+      }
+
+      attendanceStudents = result.students || [];
+      attendanceRecords = [];
+      attendanceIndex = 0;
+
+      if (!attendanceStudents.length) {
+        message.textContent = 'इस कक्षा में विद्यार्थी नहीं मिले।';
+        return;
+      }
+
+      attendanceStudents.forEach(function(student) {
+        attendanceRecords.push({
+          rollNumber: student.rollNumber,
+          studentName: student.studentName,
+          fatherName: student.fatherName,
+          status: ''
+        });
+      });
+
+      message.textContent = 'कुल विद्यार्थी: ' + attendanceStudents.length;
+      renderAttendanceStudent();
+    });
+}
+
+function renderAttendanceStudent() {
+  var box = document.getElementById('attStudentBox');
+  var student = attendanceStudents[attendanceIndex];
+  var record = attendanceRecords[attendanceIndex];
+
+  if (!student || !record) return;
+
+  box.innerHTML = '';
+
+  var heading = document.createElement('h3');
+  heading.textContent = 'विद्यार्थी ' +
+    (attendanceIndex + 1) + ' / ' + attendanceStudents.length;
+  box.appendChild(heading);
+
+  [
+    ['रोल नंबर', student.rollNumber],
+    ['विद्यार्थी का नाम', student.studentName],
+    ['पिता का नाम', student.fatherName],
+    ['उपस्थिति', record.status || 'अभी नहीं चुनी']
+  ].forEach(function(item) {
+    var line = document.createElement('p');
+    line.textContent = item[0] + ': ' + (item[1] || '—');
+    box.appendChild(line);
+  });
+
+  var choices = document.createElement('div');
+  choices.className = 'grid';
+
+  ['उपस्थित', 'अनुपस्थित', 'अवकाश'].forEach(function(status) {
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'secondary';
+    button.textContent = status;
+    button.onclick = function() {
+      markAttendance(status);
+    };
+    choices.appendChild(button);
+  });
+
+  box.appendChild(choices);
+
+  var navigation = document.createElement('div');
+  navigation.className = 'grid';
+  navigation.style.marginTop = '12px';
+
+  var previous = document.createElement('button');
+  previous.type = 'button';
+  previous.className = 'secondary';
+  previous.textContent = '← पिछला';
+  previous.onclick = function() {
+    if (attendanceIndex > 0) {
+      attendanceIndex--;
+      renderAttendanceStudent();
+    }
+  };
+
+  var next = document.createElement('button');
+  next.type = 'button';
+  next.className = 'secondary';
+  next.textContent = 'अगला →';
+  next.onclick = function() {
+    if (attendanceIndex < attendanceStudents.length - 1) {
+      attendanceIndex++;
+      renderAttendanceStudent();
+    }
+  };
+
+  navigation.appendChild(previous);
+  navigation.appendChild(next);
+  box.appendChild(navigation);
+
+  var save = document.createElement('button');
+  save.type = 'button';
+  save.className = 'primary';
+  save.textContent = 'उपस्थिति सेव करें';
+  save.onclick = saveAttendance;
+  box.appendChild(save);
+
+  box.classList.remove('hidden');
+}
+
+function markAttendance(status) {
+  if (!attendanceRecords[attendanceIndex]) return;
+
+  attendanceRecords[attendanceIndex].status = status;
+
+  if (attendanceIndex < attendanceStudents.length - 1) {
+    attendanceIndex++;
+  }
+
+  renderAttendanceStudent();
+}
+
+
+function saveAttendance() {
+  var message = document.getElementById('attMessage');
+
+  var incomplete = attendanceRecords.some(function(record) {
+    return !record.status;
+  });
+
+  if (incomplete) {
+    message.textContent = 'कृपया हर विद्यार्थी की उपस्थिति चुनें।';
+    message.classList.remove('hidden');
+    return;
+  }
+
+  var box = document.getElementById('attStudentBox');
+  var buttons = box.querySelectorAll('button');
+
+  buttons.forEach(function(button) {
+    button.disabled = true;
+  });
+
+  message.textContent = 'उपस्थिति सेव हो रही है…';
+  message.classList.remove('hidden');
+  message.className = 'noticeitem';
+
+  callServer('saveStudentAttendance', [
+    sessionToken,
+    attendanceClass,
+    attendanceDate,
+    attendanceRecords
+  ], function(result) {
+    if (!result || !result.success) {
+      message.textContent = result && result.message
+        ? result.message
+        : 'उपस्थिति सेव नहीं हुई।';
+
+      buttons.forEach(function(button) {
+        button.disabled = false;
+      });
+      return;
+    }
+
+    message.textContent = result.message || 'उपस्थिति सुरक्षित हो गई।';
+    message.className = 'message success';
+
+    loadAbsentStudents();
+  });
+}
+
+function loadAbsentStudents() {
+  var box = document.getElementById('attStudentBox');
+
+  box.innerHTML =
+    '<div class="noticeitem">अनुपस्थित विद्यार्थियों की सूची तैयार हो रही है…</div>';
+  box.classList.remove('hidden');
+
+  callServer('getAbsentStudents', [
+    sessionToken,
+    attendanceClass,
+    attendanceDate
+  ], function(result) {
+    if (!result || !result.success) {
+      box.innerHTML =
+        '<div class="noticeitem">उपस्थिति सेव हो गई, लेकिन अनुपस्थित विद्यार्थियों की सूची नहीं मिल पाई।</div>';
+      return;
+    }
+
+    var students = result.students || [];
+    box.innerHTML = '';
+
+    var heading = document.createElement('h3');
+    heading.textContent = '📋 अनुपस्थित विद्यार्थियों की सूची';
+    box.appendChild(heading);
+
+    var summary = document.createElement('div');
+    summary.className = 'noticeitem';
+    summary.textContent =
+      'कक्षा ' + attendanceClass +
+      ' • दिनांक ' + attendanceDate +
+      ' • कुल अनुपस्थित: ' + students.length;
+    box.appendChild(summary);
+
+    if (!students.length) {
+      var empty = document.createElement('div');
+      empty.className = 'noticeitem';
+      empty.textContent =
+        '🎉 आज इस कक्षा में कोई विद्यार्थी अनुपस्थित नहीं है।';
+      box.appendChild(empty);
+      return;
+    }
+
+    var list = document.createElement('div');
+    list.className = 'noticeitem';
+
+    students.forEach(function(student, index) {
+      var row = document.createElement('p');
+      row.style.cssText =
+        'margin:8px 0;padding-bottom:8px;border-bottom:1px solid #dce8f4;';
+
+      row.textContent =
+        (index + 1) + '. रोल नंबर ' + (student.rollNumber || '—') +
+        ' — ' + (student.studentName || 'नाम उपलब्ध नहीं') +
+        (student.fatherName ? ' (पिता: ' + student.fatherName + ')' : '');
+
+      list.appendChild(row);
+    });
+
+    box.appendChild(list);
+
+    var shareButton = document.createElement('button');
+    shareButton.type = 'button';
+    shareButton.className = 'primary';
+    shareButton.textContent = '📲 WhatsApp पर साझा करें';
+    shareButton.onclick = function() {
+      shareAbsentOnWhatsApp(students);
+    };
+
+    box.appendChild(shareButton);
+
+    var note = document.createElement('p');
+    note.className = 'muted';
+    note.textContent =
+      'WhatsApp खुलने पर संबंधित ग्रुप चुनें और संदेश स्वयं भेजें।';
+    box.appendChild(note);
+  });
+}
+
+function shareAbsentOnWhatsApp(students) {
+  if (!students || !students.length) {
+    alert('साझा करने के लिए अनुपस्थित विद्यार्थियों की सूची नहीं है।');
+    return;
+  }
+
+  var lines = students.map(function(student, index) {
+    return (index + 1) + '. रोल नंबर ' +
+      (student.rollNumber || '—') + ' — ' +
+      (student.studentName || 'नाम उपलब्ध नहीं') +
+      ' — पिता: ' + (student.fatherName || 'नाम उपलब्ध नहीं');
+  });
+
+  var text =
+    '🙏 *प्रिय अभिभावकों एवं प्यारे विद्यार्थियों,*\n\n' +
+    '📅 *दिनांक:* ' + attendanceDate + '\n' +
+    '🏫 *कक्षा:* ' + attendanceClass + '\n\n' +
+    '⚠️ *आज अनुपस्थित विद्यार्थी*\n\n' +
+    lines.join('\n') + '\n\n' +
+    '🔢 *कुल अनुपस्थित विद्यार्थी: ' + students.length + '*\n\n' +
+    '📢 *आवश्यक सूचना*\n\n' +
+    'प्रिय अभिभावकों, आपका बच्चा हमारे लिए बहुत अनमोल है। ' +
+    'उसकी हर दिन की उपस्थिति उसके उज्ज्वल भविष्य की नींव है। ' +
+    'लगातार अनुपस्थित रहने से पढ़ाई में पीछे छूटने और महत्वपूर्ण पाठ ' +
+    'समझने में कठिनाई होने की आशंका रहती है।\n\n' +
+    '⚠️ कृपया बिना उचित कारण के बच्चे को विद्यालय से अनुपस्थित न रखें। ' +
+    'यदि कोई आवश्यक कारण हो, तो कक्षा शिक्षक को अवश्य सूचित करें।\n\n' +
+    '❤️ *याद रखिए—आज की छोटी-सी लापरवाही बच्चे की पढ़ाई को प्रभावित ' +
+    'कर सकती है, जबकि आपकी थोड़ी-सी जागरूकता उसके भविष्य को सँवार सकती है।*\n\n' +
+    'आइए, मिलकर बच्चों की नियमित उपस्थिति और उज्ज्वल भविष्य सुनिश्चित करें।\n\n' +
+    '*सादर — कक्षा शिक्षक* 🙏';
+
+  var url = 'https://wa.me/?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+}
+
+  function openPage(key) {
+  if (!pages[key]) return;
+  if (currentRole === 'student' && key === 'teacher') return;
+
+  currentPage = key;
+
+  document.getElementById('pageTitle').textContent = pages[key][0];
+  document.getElementById('pageDesc').textContent = pages[key][1];
+  document.getElementById('pageContent').innerHTML = pages[key][2];
+
+  history.pushState({ screen: 'page', key: key }, '', '#' + key);
+  showScreen('subpage');
+
+  if (key === 'teacher') {
+    loadTeacherDetails();
+  }
+
+    if (key === 'goswara') {
+    loadGoswaraData();
+  }
+
+  if (key === 'result') {
+    loadResultPage();
+  }
+}
+
+function loadResultPage() {
+  const app = document.getElementById('resultApp');
+  if (!app) return;
+  if (currentRole === 'student') {
+  loadStudentMarksheet();
+  return;
+}
+
+  app.innerHTML = `
+    <div class="panel">
+      <h3>📊 परीक्षा परिणाम प्रबंधन</h3>
+
+      <div class="notice">
+        सत्र, कक्षा और परीक्षा चुनकर आगे बढ़ें।
+      </div>
+
+      <label>शैक्षणिक सत्र</label>
+      <select id="resultSession">
+        <option value="">सत्र चुनें</option>
+        <option value="2026-27">2026-27</option>
+      </select>
+
+      <label>कक्षा</label>
+      <select id="resultClass">
+        <option value="">कक्षा चुनें</option>
+        <option value="9">कक्षा 9वीं</option>
+        <option value="10">कक्षा 10वीं</option>
+        <option value="11">कक्षा 11वीं</option>
+        <option value="12">कक्षा 12वीं</option>
+      </select>
+
+      <label>परीक्षा</label>
+<select id="resultExam"
+  onchange="
+    document.getElementById('resultMonthBox').style.display =
+    this.value === 'MONTHLY' ? 'block' : 'none';
+  ">
+  <option value="">परीक्षा चुनें</option>
+  <option value="MONTHLY">मासिक परीक्षा</option>
+  <option value="QUARTERLY">त्रैमासिक</option>
+  <option value="HALF_YEARLY">अर्धवार्षिक</option>
+  <option value="PRE_BOARD">प्री-बोर्ड</option>
+  <option value="ANNUAL">वार्षिक</option>
+</select>
+
+<div id="resultAnnualNote" class="notice" style="display:none;">
+  कक्षा 10वीं और 12वीं में वार्षिक परीक्षा उपलब्ध नहीं है।
+</div>
+
+      <div id="resultMonthBox" style="display:none;">
+        <label>पेपर का महीना चुनें</label>
+        <select id="resultMonth">
+          <option value="">महीना चुनें</option>
+          <option value="M01">जुलाई</option>
+          <option value="M02">अगस्त</option>
+          <option value="M03">सितंबर</option>
+          <option value="M04">अक्टूबर</option>
+          <option value="M05">नवंबर</option>
+          <option value="M06">दिसंबर</option>
+          <option value="M07">जनवरी</option>
+          <option value="M08">फरवरी</option>
+          <option value="M09">मार्च</option>
+        </select>
+      </div>
+
+      <button class="primary" onclick="openResultSetup()">
+        आगे बढ़ें
+      </button>
+    </div>
+  `;
+}
+function loadStudentMarksheet() {
+  const app = document.getElementById('resultApp');
+  if (!app) return;
+
+  app.innerHTML = `
+    <div class="panel">
+      <h3>🎓 मेरी परीक्षा मार्कशीट</h3>
+
+      <label>शैक्षणिक सत्र</label>
+      <select id="studentResultSession">
+        <option value="2026-27">2026-27</option>
+      </select>
+
+      <label>परीक्षा चुनें</label>
+      <select id="studentResultExam">
+        <option value="">परीक्षा चुनें</option>
+        <option value="M01">जुलाई मासिक परीक्षा</option>
+        <option value="M02">अगस्त मासिक परीक्षा</option>
+        <option value="M03">सितंबर मासिक परीक्षा</option>
+        <option value="M04">अक्टूबर मासिक परीक्षा</option>
+        <option value="M05">नवंबर मासिक परीक्षा</option>
+        <option value="M06">दिसंबर मासिक परीक्षा</option>
+        <option value="M07">जनवरी मासिक परीक्षा</option>
+        <option value="M08">फरवरी मासिक परीक्षा</option>
+        <option value="M09">मार्च मासिक परीक्षा</option>
+        <option value="QUARTERLY">त्रैमासिक परीक्षा</option>
+        <option value="HALF_YEARLY">अर्धवार्षिक परीक्षा</option>
+        <option value="PRE_BOARD">प्री-बोर्ड परीक्षा</option>
+        <option value="ANNUAL">वार्षिक परीक्षा</option>
+      </select>
+
+      <button type="button" class="primary"
+        id="loadStudentMarksheetBtn">
+        मार्कशीट देखें
+      </button>
+
+      <div id="studentMarksheetMessage" class="notice">
+        परीक्षा चुनकर मार्कशीट देखें।
+      </div>
+
+      <div id="studentMarksheetContent"></div>
+    </div>
+  `;
+
+  const button = document.getElementById(
+    'loadStudentMarksheetBtn'
+  );
+
+  button.onclick = function() {
+    const session = document.getElementById(
+      'studentResultSession'
+    ).value;
+
+    const examId = document.getElementById(
+      'studentResultExam'
+    ).value;
+
+    const message = document.getElementById(
+      'studentMarksheetMessage'
+    );
+
+    const content = document.getElementById(
+      'studentMarksheetContent'
+    );
+
+    if (!examId) {
+      message.textContent = 'कृपया परीक्षा चुनें।';
+      content.innerHTML = '';
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'मार्कशीट लोड हो रही है...';
+    message.textContent = '';
+    content.innerHTML = '';
+
+    callServer(
+      'getPublishedResultForStudent',
+      [sessionToken, session, examId],
+      function(response) {
+
+        button.disabled = false;
+        button.textContent = 'मार्कशीट देखें';
+
+        if (!response || !response.success) {
+          message.textContent =
+            response?.message ||
+            'मार्कशीट प्राप्त नहीं हुई।';
+
+          return;
+        }
+
+        const student = response.student || {};
+        const summary = response.summary || {};
+        const subjects = response.subjects || [];
+
+        if (!subjects.length) {
+          message.textContent = 'विषयवार अंक उपलब्ध नहीं हैं।';
+          return;
+        }
+
+        const examName =
+          subjects[0]['Exam Name'] || examId;
+
+        let rows = '';
+
+        subjects.forEach(function(item, index) {
+
+          const subject = item['Subject'] || '';
+
+          const writtenFull =
+            Number(item['Written Full Marks']) || 0;
+
+          const writtenObtained =
+            Number(item['Written Obtained']) || 0;
+
+          const extraFull =
+            Number(item['Practical Full Marks']) || 0;
+
+          const extraObtained =
+            Number(item['Practical Obtained']) || 0;
+            const evaluationType =
+  String(item['Evaluation Type'] || '').toUpperCase();
+
+const extraLabel =
+  evaluationType === 'PRACTICAL'
+    ? 'प्रैक्टिकल'
+    : evaluationType === 'PROJECT'
+      ? 'प्रोजेक्ट'
+      : 'अतिरिक्त अंक';
+
+          const totalFull =
+            Number(item['Total Full Marks']) || 0;
+
+          const totalObtained =
+            Number(item['Total Obtained']) || 0;
+
+          const writtenStatus =
+            String(item['Written Status'] || '').toUpperCase();
+
+          const subjectResult =
+            String(item['Subject Result'] || '').toUpperCase();
+
+          const statusText =
+            writtenStatus === 'ABSENT'
+              ? 'अनुपस्थित'
+              : subjectResult === 'PASS'
+                ? 'उत्तीर्ण'
+                : 'अनुत्तीर्ण';
+
+          rows += `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${escapeHtml(subject)}</td>
+              <td>${writtenObtained}/${writtenFull}</td>
+              <td>
+  ${extraFull > 0
+    ? escapeHtml(extraLabel) + ' ' +
+      extraObtained + '/' + extraFull
+    : '—'}
+</td>
+              <td>${totalObtained}/${totalFull}</td>
+              <td>${statusText}</td>
+            </tr>
+          `;
+        });
+
+        const overallResult =
+  summary.result === 'PASS'
+    ? 'उत्तीर्ण'
+    : summary.result === 'SUPPLEMENTARY'
+      ? 'पूरक परीक्षा'
+      : 'अनुत्तीर्ण';
+
+        content.innerHTML = `
+          <div id="resultMarksheet"
+            style="
+              background:white;
+              color:#173454;
+              padding:16px;
+              margin-top:18px;
+              border:2px solid #12366b;
+              border-radius:12px;
+            ">
+
+            <div style="text-align:center;">
+              <h2 style="color:#12366b;margin:5px 0;">
+                शासकीय उच्चतर माध्यमिक विद्यालय
+              </h2>
+
+              <div style="font-size:13px;">
+                परीक्षा अंकसूची
+              </div>
+
+              <b>${escapeHtml(examName)}</b>
+
+              <div style="font-size:12px;margin-top:4px;">
+                शैक्षणिक सत्र ${escapeHtml(session)}
+              </div>
+            </div>
+
+            <hr>
+
+            <div style="font-size:13px;line-height:2;">
+              <b>विद्यार्थी:</b>
+              ${escapeHtml(student.studentName)}<br>
+
+              <b>पिता का नाम:</b>
+              ${escapeHtml(student.fatherName)}<br>
+
+              <b>कक्षा:</b>
+              ${escapeHtml(student.className)}वीं<br>
+
+              <b>पंजीयन क्रमांक:</b>
+              ${escapeHtml(student.registrationNo || '—')}
+            </div>
+
+            <div style="overflow-x:auto;margin-top:14px;">
+              <table style="
+                width:100%;
+                border-collapse:collapse;
+                font-size:12px;
+                min-width:430px;
+              ">
+                <thead>
+                  <tr style="background:#eaf2fc;">
+                    <th style="border:1px solid #9eb4cb;padding:7px;">क्र.</th>
+                    <th style="border:1px solid #9eb4cb;padding:7px;">विषय</th>
+                    <th style="border:1px solid #9eb4cb;padding:7px;">लिखित</th>
+                    <th style="border:1px solid #9eb4cb;padding:7px;">प्रैक्टिकल/प्रोजेक्ट</th>
+                    <th style="border:1px solid #9eb4cb;padding:7px;">कुल</th>
+                    <th style="border:1px solid #9eb4cb;padding:7px;">परिणाम</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  ${rows}
+                </tbody>
+              </table>
+            </div>
+
+            <div style="
+              margin-top:16px;
+              padding:12px;
+              background:#edf6ff;
+              border-radius:10px;
+              line-height:2;
+              font-size:14px;
+            ">
+              <b>कुल विषय:</b>
+              ${Number(summary.totalSubjects) || 0}<br>
+
+              <b>कुल पूर्णांक:</b>
+              ${Number(summary.totalFullMarks) || 0}<br>
+
+              <b>कुल प्राप्तांक:</b>
+              ${Number(summary.totalObtained) || 0}<br>
+
+              <b>प्रतिशत:</b>
+              ${Number(summary.percentage || 0).toFixed(2)}%<br>
+
+              <b>अनुत्तीर्ण विषय:</b>
+              ${Number(summary.failedSubjects) || 0}<br>
+
+              <b>अनुपस्थित विषय:</b>
+              ${Number(summary.absentSubjects) || 0}<br>
+
+              <b>अंतिम परिणाम:</b>
+              ${overallResult}
+            </div>
+
+            <div style="
+              display:flex;
+              justify-content:space-between;
+              margin-top:55px;
+              font-size:12px;
+            ">
+              <span>कक्षा शिक्षक</span>
+              <span>प्राचार्य</span>
+            </div>
+
+          </div>
+
+          <button type="button" class="primary no-print"
+            onclick="window.print()">
+            🖨️ मार्कशीट प्रिंट / PDF
+          </button>
+        `;
+
+        message.textContent = 'मार्कशीट सफलतापूर्वक प्राप्त हुई।';
+      }
+    );
+  };
+
+  if (!document.getElementById('studentMarksheetPrintStyle')) {
+    const style = document.createElement('style');
+    style.id = 'studentMarksheetPrintStyle';
+
+    style.textContent = `
+      @media print {
+        body * {
+          visibility: hidden !important;
+        }
+
+        #resultMarksheet,
+        #resultMarksheet * {
+          visibility: visible !important;
+        }
+
+        #resultMarksheet {
+          position: absolute !important;
+          left: 0 !important;
+          top: 0 !important;
+          width: 100% !important;
+          margin: 0 !important;
+          border: 1px solid #000 !important;
+          border-radius: 0 !important;
+        }
+
+        .no-print {
+          display: none !important;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, function(char) {
+    const entities = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    };
+    return entities[char];
+  });
+}
+var activeResultClass = '';
+var activeResultStream = '';
+var activeResultSession = '';
+var activeResultExam = '';
+var activeResultSubjects = [];
+var activeResultSubjectSettings = [];
+var activeResultPracticalSubjects = {};
+function ensureResultExamSetting(onSuccess) {
+  const settingData = {
+    academicSession: activeResultSession,
+    className: activeResultClass,
+    stream: activeResultStream,
+    examId: activeResultExam
+  };
+
+  callServer(
+    'saveResultSetting',
+    [sessionToken, settingData],
+    function(response) {
+      if (!response || !response.success) {
+        alert(
+          response?.message ||
+          'परीक्षा सेटिंग सुरक्षित नहीं हुई।'
+        );
+        return;
+      }
+
+      if (typeof onSuccess === 'function') {
+        onSuccess();
+      }
+    }
+  );
+}
+
+function openResultSetup() {
+  const session = document.getElementById('resultSession')?.value;
+  const className = document.getElementById('resultClass')?.value;
+  const exam = document.getElementById('resultExam')?.value;
+  const monthCode = document.getElementById('resultMonth')?.value;
+
+  if (!session || !className || !exam) {
+    alert('कृपया सत्र, कक्षा और परीक्षा चुनें।');
+    return;
+  }
+
+  if (exam === 'MONTHLY' && !monthCode) {
+    alert('कृपया मासिक परीक्षा का महीना चुनें।');
+    return;
+  }
+
+  if (exam === 'ANNUAL' && !['9', '11'].includes(className)) {
+    alert('वार्षिक परीक्षा केवल कक्षा 9वीं और 11वीं के लिए उपलब्ध है।');
+    return;
+  }
+
+  const monthNames = {
+    M01: 'जुलाई',
+    M02: 'अगस्त',
+    M03: 'सितंबर',
+    M04: 'अक्टूबर',
+    M05: 'नवंबर',
+    M06: 'दिसंबर',
+    M07: 'जनवरी',
+    M08: 'फरवरी',
+    M09: 'मार्च'
+  };
+
+  activeResultSession = session;
+  activeResultClass = className;
+  activeResultExam = exam === 'MONTHLY' ? monthCode : exam;
+
+  const examLabel = exam === 'MONTHLY'
+    ? 'मासिक परीक्षा - ' + monthNames[monthCode]
+    : document.getElementById('resultExam')
+        .selectedOptions[0].textContent;
+
+  const app = document.getElementById('resultApp');
+  if (!app) return;
+
+  if (Number(className) <= 10) {
+    activeResultStream = 'सामान्य';
+
+    app.innerHTML = `
+      <div class="panel">
+        <h3>📚 विषय सेटअप</h3>
+        <div class="notice">
+          सत्र: ${escapeHtml(session)}<br>
+          कक्षा: ${escapeHtml(className)}वीं<br>
+          परीक्षा: ${escapeHtml(examLabel)}
+        </div>
+        <div id="resultSubjects">
+          <div class="notice">विषय लोड हो रहे हैं...</div>
+        </div>
+        <button class="secondary" onclick="loadResultPage()">वापस जाएँ</button>
+      </div>
+    `;
+
+    ensureResultExamSetting(function() {
+  loadResultSubjects();
+});
+
+  } else {
+    app.innerHTML = `
+      <div class="panel">
+        <h3>📚 विषय सेटअप</h3>
+        <div class="notice">
+          सत्र: ${escapeHtml(session)}<br>
+          कक्षा: ${escapeHtml(className)}वीं<br>
+          परीक्षा: ${escapeHtml(examLabel)}
+        </div>
+
+        <label>संकाय चुनें</label>
+        <select id="resultStream" onchange="selectResultStream()">
+          <option value="">संकाय चुनें</option>
+          <option value="कला">कला</option>
+          <option value="विज्ञान">विज्ञान</option>
+          <option value="वाणिज्य">वाणिज्य</option>
+        </select>
+
+        <div id="resultSubjects"></div>
+        <button class="secondary" onclick="loadResultPage()">वापस जाएँ</button>
+      </div>
+    `;
+  }
+}
+
+function selectResultStream() {
+  const stream = document.getElementById('resultStream')?.value;
+
+  if (!stream) {
+    document.getElementById('resultSubjects').innerHTML = '';
+    return;
+  }
+
+  activeResultStream = stream;
+
+  ensureResultExamSetting(function() {
+    loadResultSubjects();
+  });
+}
+
+function loadResultSubjects() {
+  const container = document.getElementById('resultSubjects');
+  if (!container) return;
+
+  container.innerHTML = '<div class="notice">विषय लोड हो रहे हैं...</div>';
+
+  callServer(
+    'getResultSubjects',
+    [sessionToken, activeResultClass, activeResultStream],
+    function(response) {
+      if (!response || !response.success) {
+        container.innerHTML = `
+          <div class="notice">
+            ${escapeHtml(response?.message || 'विषय लोड नहीं हो पाए।')}
+          </div>
+        `;
+        return;
+      }
+
+      const subjects = response.subjects || [];
+
+      if (!subjects.length) {
+        container.innerHTML =
+          '<div class="notice">इस कक्षा और संकाय के विषय नहीं मिले।</div>';
+        return;
+      }
+
+      const compulsory = subjects.filter(
+        s => s.subjectType === 'COMPULSORY'
+      );
+
+      const optional = subjects.filter(
+        s => s.subjectType !== 'COMPULSORY'
+      );
+
+      const groups = {};
+
+      optional.forEach(item => {
+        const group = item.choiceGroup || 'OTHER';
+        if (!groups[group]) groups[group] = [];
+        groups[group].push(item);
+      });
+
+      let html = '<h4>अनिवार्य विषय</h4>';
+
+      compulsory.forEach(item => {
+        html += `
+          <label class="subject-option">
+            <input type="checkbox" checked disabled>
+            ${escapeHtml(item.subject)}
+          </label>
+        `;
+      });
+
+      if (optional.length) {
+        html += '<h4>वैकल्पिक विषय</h4>';
+
+        Object.keys(groups).forEach((group, groupIndex) => {
+          html += `
+            <div class="notice">
+              <b>विकल्प समूह ${groupIndex + 1}</b>
+              <p>एक विषय चुनें:</p>
+          `;
+
+          groups[group].forEach((item, index) => {
+            html += `
+              <label class="subject-option">
+                <input
+                  type="radio"
+                  name="resultChoice_${groupIndex}"
+                  value="${escapeHtml(item.subject)}"
+                  ${index === 0 ? 'checked' : ''}
+                >
+                ${escapeHtml(item.subject)}
+              </label>
+            `;
+          });
+
+          html += '</div>';
+        });
+      }
+
+      html += `
+        <hr>
+        <h4>विषयों के अंक निर्धारित करें</h4>
+        <div id="resultMarksSettings">
+          <div class="notice">अंक सेटिंग लोड हो रही है...</div>
+        </div>
+      `;
+
+      container.innerHTML = html;
+
+      callServer(
+        'getResultSubjectSettings',
+        [
+          sessionToken,
+          activeResultSession,
+          activeResultClass,
+          activeResultStream,
+          activeResultExam
+        ],
+        function(settingsResponse) {
+          if (!settingsResponse || !settingsResponse.success) {
+            document.getElementById('resultMarksSettings').innerHTML =
+              `<div class="notice">
+                ${escapeHtml(settingsResponse?.message || 'अंक सेटिंग लोड नहीं हुई।')}
+              </div>`;
+            return;
+          }
+
+          const savedSettings = settingsResponse.settings || [];
+          const settingsMap = {};
+
+          savedSettings.forEach(item => {
+            settingsMap[item.subject] = item;
+          });
+
+          function getSelectedSubjects() {
+            const selected = compulsory.map(item => item.subject);
+
+            Object.keys(groups).forEach((group, groupIndex) => {
+              const radio = container.querySelector(
+                `input[name="resultChoice_${groupIndex}"]:checked`
+              );
+
+              if (radio) selected.push(radio.value);
+            });
+
+            return selected;
+          }
+
+          function renderMarksSettings() {
+            const panel = document.getElementById('resultMarksSettings');
+            if (!panel) return;
+
+            const selectedSubjects = getSelectedSubjects();
+
+            let settingsHtml = '';
+
+            selectedSubjects.forEach((subject, index) => {
+              const saved = settingsMap[subject] || {};
+
+              settingsHtml += `
+  <div class="notice" style="margin-bottom:12px;">
+    <b>${index + 1}. ${escapeHtml(subject)}</b>
+
+    <div class="form-group">
+      <label>पूर्णांक (Full Marks)</label>
+      <input type="number" class="form-control"
+        min="1" step="1"
+        id="resultFull_${index}"
+        value="${saved.fullMarks ?? ''}"
+        placeholder="जैसे 100">
+    </div>
+
+    <div class="form-group">
+      <label>उत्तीर्णांक (Passing Marks)</label>
+      <input type="number" class="form-control"
+        min="0" step="1"
+        id="resultPass_${index}"
+        value="${saved.passingMarks ?? ''}"
+        placeholder="जैसे 33">
+    </div>
+
+    <label>अतिरिक्त परीक्षा का प्रकार</label>
+
+<select
+  class="result-evaluation-type"
+  id="resultEvaluationType_${index}"
+  data-index="${index}">
+
+  <option value="">चयन नहीं — केवल लिखित परीक्षा</option>
+
+  <option value="PRACTICAL"
+    ${saved.evaluationType === 'PRACTICAL' ? 'selected' : ''}>
+    प्रैक्टिकल
+  </option>
+
+  <option value="PROJECT"
+    ${saved.evaluationType === 'PROJECT' ? 'selected' : ''}>
+    प्रोजेक्ट
+  </option>
+</select>
+
+<div
+  id="resultEvaluationBox_${index}"
+  style="display:${saved.evaluationType ? 'block' : 'none'};">
+
+  <label>प्रैक्टिकल / प्रोजेक्ट के अधिकतम अंक</label>
+
+  <input
+    type="number"
+    min="1"
+    step="1"
+    id="resultEvaluationFull_${index}"
+    value="${saved.evaluationFullMarks || ''}"
+    placeholder="जैसे 20 या 25">
+</div>
+`;
+
+                  
+                    
+            });
+
+            settingsHtml += `
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="saveResultSubjectSettingsBtn"
+              >
+                विषयों के अंक सुरक्षित करें
+              </button>
+            `;
+
+            panel.innerHTML = settingsHtml;
+            panel.querySelectorAll('.result-evaluation-type').forEach(select => {
+  select.addEventListener('change', function() {
+    const index = Number(this.dataset.index);
+    const box = document.getElementById(
+      `resultEvaluationBox_${index}`
+    );
+
+    if (box) {
+      box.style.display = this.value ? 'block' : 'none';
+    }
+  });
+});
+
+            const saveButton = document.getElementById(
+              'saveResultSubjectSettingsBtn'
+            );
+
+            saveButton.addEventListener('click', function() {
+              const selected = getSelectedSubjects();
+              const data = [];
+
+              for (let i = 0; i < selected.length; i++) {
+                const fullMarks = Number(
+                  document.getElementById(`resultFull_${i}`).value
+                );
+
+                const passingMarks = Number(
+                  document.getElementById(`resultPass_${i}`).value
+                );
+
+                if (
+                  !Number.isFinite(fullMarks) ||
+                  fullMarks <= 0 ||
+                  !Number.isFinite(passingMarks) ||
+                  passingMarks < 0 ||
+                  passingMarks > fullMarks
+                ) {
+                  alert(
+                    selected[i] +
+                    ' के पूर्णांक और उत्तीर्णांक सही भरें।'
+                  );
+                  return;
+                }
+
+                const evaluationType = document.getElementById(
+  `resultEvaluationType_${i}`
+).value;
+
+const evaluationFullRaw = document.getElementById(
+  `resultEvaluationFull_${i}`
+).value.trim();
+
+let evaluationFullMarks = '';
+
+if (evaluationType) {
+  evaluationFullMarks = Number(evaluationFullRaw);
+
+  if (
+    !Number.isFinite(evaluationFullMarks) ||
+    evaluationFullMarks <= 0
+  ) {
+    alert(
+      selected[i] +
+      ' के प्रैक्टिकल / प्रोजेक्ट के अधिकतम अंक सही भरें।'
+    );
+    return;
+  }
+}
+
+data.push({
+  academicSession: activeResultSession,
+  className: activeResultClass,
+  stream: activeResultStream,
+  examId: activeResultExam,
+  subject: selected[i],
+  fullMarks: fullMarks,
+  passingMarks: passingMarks,
+  evaluationType: evaluationType,
+  evaluationFullMarks: evaluationFullMarks
+});
+              }
+
+              saveButton.disabled = true;
+              saveButton.textContent = 'सेव हो रहा है...';
+
+              let index = 0;
+
+              function saveNext() {
+                if (index >= data.length) {
+  alert('सभी विषयों के अंक सुरक्षित हो गए।');
+  saveButton.disabled = false;
+  saveButton.textContent = 'विषयों के अंक सुरक्षित करें';
+  activeResultSubjects = selected.slice();
+  openResultMarksEntry();
+  return;
+}
+
+                callServer(
+                  'saveResultSubjectSettings',
+                  [sessionToken, data[index]],
+                  function(saveResponse) {
+                    if (!saveResponse || !saveResponse.success) {
+                      alert(
+                        saveResponse?.message ||
+                        'अंक सुरक्षित नहीं हो पाए।'
+                      );
+
+                      saveButton.disabled = false;
+                      saveButton.textContent = 'दोबारा सेव करें';
+                      return;
+                    }
+
+                    index++;
+                    saveNext();
+                  }
+                );
+              }
+
+              saveNext();
+            });
+          }
+
+          container.querySelectorAll(
+            'input[type="radio"][name^="resultChoice_"]'
+          ).forEach(radio => {
+            radio.addEventListener('change', renderMarksSettings);
+          });
+
+          renderMarksSettings();
+        }
+      );
+    }
+  );
+}
+function returnToResultSubjectSetup() {
+  const app = document.getElementById('resultApp');
+  if (!app) return;
+
+  const monthNames = {
+    M01: 'जुलाई',
+    M02: 'अगस्त',
+    M03: 'सितंबर',
+    M04: 'अक्टूबर',
+    M05: 'नवंबर',
+    M06: 'दिसंबर',
+    M07: 'जनवरी',
+    M08: 'फरवरी',
+    M09: 'मार्च'
+  };
+
+  const examNames = {
+    QUARTERLY: 'त्रैमासिक',
+    HALF_YEARLY: 'अर्धवार्षिक',
+    PRE_BOARD: 'प्री-बोर्ड',
+    ANNUAL: 'वार्षिक'
+  };
+
+  const examLabel = monthNames[activeResultExam]
+    ? 'मासिक परीक्षा - ' + monthNames[activeResultExam]
+    : (examNames[activeResultExam] || activeResultExam);
+
+  if (Number(activeResultClass) <= 10) {
+    app.innerHTML = `
+      <div class="panel">
+        <h3>📚 विषय सेटअप</h3>
+
+        <div class="notice">
+          सत्र: ${escapeHtml(activeResultSession)}<br>
+          कक्षा: ${escapeHtml(activeResultClass)}वीं<br>
+          परीक्षा: ${escapeHtml(examLabel)}
+        </div>
+
+        <div id="resultSubjects">
+          <div class="notice">विषय लोड हो रहे हैं...</div>
+        </div>
+
+        <button class="secondary" onclick="loadResultPage()">
+          वापस जाएँ
+        </button>
+      </div>
+    `;
+
+    loadResultSubjects();
+
+  } else {
+    app.innerHTML = `
+      <div class="panel">
+        <h3>📚 विषय सेटअप</h3>
+
+        <div class="notice">
+          सत्र: ${escapeHtml(activeResultSession)}<br>
+          कक्षा: ${escapeHtml(activeResultClass)}वीं<br>
+          परीक्षा: ${escapeHtml(examLabel)}
+        </div>
+
+        <label>संकाय चुनें</label>
+
+        <select id="resultStream" onchange="selectResultStream()">
+          <option value="">संकाय चुनें</option>
+          <option value="कला" ${activeResultStream === 'कला' ? 'selected' : ''}>कला</option>
+          <option value="विज्ञान" ${activeResultStream === 'विज्ञान' ? 'selected' : ''}>विज्ञान</option>
+          <option value="वाणिज्य" ${activeResultStream === 'वाणिज्य' ? 'selected' : ''}>वाणिज्य</option>
+        </select>
+
+        <div id="resultSubjects"></div>
+
+        <button class="secondary" onclick="loadResultPage()">
+          वापस जाएँ
+        </button>
+      </div>
+    `;
+
+    if (activeResultStream) {
+      loadResultSubjects();
+    }
+  }
+}
+
+
+function openResultMarksEntry() {
+  const app = document.getElementById('resultApp');
+  if (!app) return;
+
+  app.innerHTML = `
+    <div class="panel">
+      <h3>📝 विद्यार्थियों के अंक भरें</h3>
+
+      <div class="notice">
+        सत्र: ${escapeHtml(activeResultSession)}<br>
+        कक्षा: ${escapeHtml(activeResultClass)}वीं<br>
+        परीक्षा: ${escapeHtml(activeResultExam)}
+      </div>
+
+      <button type="button" class="primary"
+        onclick="openResultClassReport()">
+        📊 पूरी कक्षा की अंक सूची देखें
+      </button>
+
+      <div id="resultStudentList" class="notice">
+        विद्यार्थियों की सूची लोड हो रही है...
+      </div>
+
+      <button class="secondary"
+        onclick="returnToResultSubjectSetup()">
+        ← विषय सेटिंग में वापस जाएँ
+      </button>
+    </div>
+  `;
+
+  callServer(
+    'getResultStudents',
+    [sessionToken, activeResultClass, activeResultStream],
+    function(response) {
+      const list = document.getElementById('resultStudentList');
+      if (!list) return;
+
+      if (!response || !response.success) {
+        list.textContent = response?.message ||
+          'विद्यार्थियों की सूची नहीं मिली।';
+        return;
+      }
+
+      const students = response.students || [];
+
+      if (!students.length) {
+        list.textContent = 'इस कक्षा में विद्यार्थी नहीं मिले।';
+        return;
+      }
+
+      list.innerHTML = '<h4>विद्यार्थियों की सूची (' +
+        students.length + ')</h4>';
+
+      students.forEach(function(student, index) {
+        const button = document.createElement('button');
+
+        button.type = 'button';
+        button.className = 'tile';
+        button.style.width = '100%';
+        button.style.marginTop = '9px';
+        button.style.minHeight = 'auto';
+
+        button.textContent =
+          (index + 1) + '. ' + student.studentName +
+          ' | रोल नंबर: ' + (student.rollNumber || '—');
+
+        button.onclick = function() {
+          openResultStudentEntry(student);
+        };
+
+        list.appendChild(button);
+      });
+    }
+  );
+}
+
+
+function openResultClassReport() {
+  const app = document.getElementById('resultApp');
+  if (!app) return;
+
+  if (!activeResultSubjects.length) {
+    alert('विषयों की सूची उपलब्ध नहीं है।');
+    return;
+  }
+
+  app.innerHTML = `
+    <div class="panel">
+      <h3>📊 कक्षा की पूरी अंक सूची</h3>
+
+      <div class="notice">
+        सत्र: ${escapeHtml(activeResultSession)}<br>
+        कक्षा: ${escapeHtml(activeResultClass)}वीं<br>
+        परीक्षा: ${escapeHtml(activeResultExam)}
+      </div>
+
+      <div id="classReportMessage" class="notice">
+        अंक सूची तैयार हो रही है...
+      </div>
+
+      <div id="classReportContent"></div>
+
+      <button type="button" class="primary"
+        id="publishResultBtn" disabled>
+        रिजल्ट प्रकाशित करें
+      </button>
+
+      <button type="button" class="secondary"
+        style="width:100%;margin-top:12px;"
+        onclick="openResultMarksEntry()">
+        ← विद्यार्थी सूची में वापस जाएँ
+      </button>
+    </div>
+  `;
+
+  const message = document.getElementById('classReportMessage');
+  const content = document.getElementById('classReportContent');
+  const publishButton = document.getElementById('publishResultBtn');
+
+  // पहले कक्षा के विद्यार्थी प्राप्त करें।
+  callServer(
+    'getResultStudents',
+    [sessionToken, activeResultClass, activeResultStream],
+    function(studentResponse) {
+
+      if (!studentResponse || !studentResponse.success) {
+        message.textContent =
+          studentResponse?.message || 'विद्यार्थियों की सूची नहीं मिली।';
+        return;
+      }
+
+      const students = studentResponse.students || [];
+
+      if (!students.length) {
+        message.textContent = 'इस कक्षा में विद्यार्थी नहीं मिले।';
+        return;
+      }
+
+      // अब दर्ज किए गए अंक प्राप्त करें।
+      callServer(
+        'getResultMarksForTeacher',
+        [
+          sessionToken,
+          {
+            academicSession: activeResultSession,
+            examId: activeResultExam,
+            className: activeResultClass,
+            stream: activeResultStream
+          }
+        ],
+        function(marksResponse) {
+
+          if (!marksResponse || !marksResponse.success) {
+            message.textContent =
+              marksResponse?.message || 'दर्ज अंक प्राप्त नहीं हुए।';
+            return;
+          }
+
+          const marks = marksResponse.marks || [];
+
+          // विषय की अतिरिक्त परीक्षा सेटिंग प्राप्त करें।
+          callServer(
+            'getResultSubjectSettings',
+            [
+              sessionToken,
+              activeResultSession,
+              activeResultClass,
+              activeResultStream,
+              activeResultExam
+            ],
+            function(settingsResponse) {
+
+              if (!settingsResponse || !settingsResponse.success) {
+                message.textContent =
+                  settingsResponse?.message ||
+                  'विषय सेटिंग प्राप्त नहीं हुई।';
+                return;
+              }
+
+              const settingsMap = {};
+
+              (settingsResponse.settings || []).forEach(item => {
+                settingsMap[item.subject] = item;
+              });
+
+              function studentKey(name, father) {
+                return String(name || '').trim().toLowerCase() +
+                  '|' +
+                  String(father || '').trim().toLowerCase();
+              }
+
+              const marksMap = {};
+
+              marks.forEach(item => {
+                const key = studentKey(
+                  item['Student Name'],
+                  item['Father Name']
+                );
+
+                if (!marksMap[key]) {
+                  marksMap[key] = {};
+                }
+
+                marksMap[key][item['Subject']] = item;
+              });
+
+              let allComplete = true;
+              let completedStudents = 0;
+              let reportHTML = '';
+
+              students.forEach((student, studentIndex) => {
+
+                const key = studentKey(
+                  student.studentName,
+                  student.fatherName
+                );
+
+                const studentMarks = marksMap[key] || {};
+
+                let totalFull = 0;
+                let totalObtained = 0;
+                let missing = 0;
+
+                let rowsHTML = '';
+
+                activeResultSubjects.forEach(subject => {
+
+                  const item = studentMarks[subject];
+
+                  if (!item) {
+                    missing++;
+                    allComplete = false;
+
+                    rowsHTML += `
+                      <tr>
+                        <td>${escapeHtml(subject)}</td>
+                        <td colspan="4" style="color:#b45309;">
+                          अंक बाकी
+                        </td>
+                      </tr>
+                    `;
+                    return;
+                  }
+
+                  const writtenFull =
+                    Number(item['Written Full Marks']) || 0;
+
+                  const writtenObtained =
+                    Number(item['Written Obtained']) || 0;
+
+                  const practicalFull =
+                    Number(item['Practical Full Marks']) || 0;
+
+                  const practicalObtained =
+                    Number(item['Practical Obtained']) || 0;
+
+                  const subjectFull =
+                    Number(item['Total Full Marks']) || 0;
+
+                  const subjectObtained =
+                    Number(item['Total Obtained']) || 0;
+
+                  totalFull += subjectFull;
+                  totalObtained += subjectObtained;
+
+                  const setting = settingsMap[subject] || {};
+                  const type = String(
+                    setting.evaluationType || ''
+                  ).toUpperCase();
+
+                  const extraLabel = type === 'PRACTICAL'
+                    ? 'प्रैक्टिकल'
+                    : type === 'PROJECT'
+                      ? 'प्रोजेक्ट'
+                      : '';
+
+                  const extraMarks = extraLabel
+                    ? practicalObtained + '/' + practicalFull
+                    : '—';
+
+                  const writtenStatus =
+                    String(item['Written Status'] || '').toUpperCase();
+
+                  const subjectResult =
+                    String(item['Subject Result'] || '').toUpperCase();
+
+                  const statusText =
+                    writtenStatus === 'ABSENT'
+                      ? 'अनुपस्थित'
+                      : subjectResult === 'PASS'
+                        ? 'उत्तीर्ण'
+                        : 'अनुत्तीर्ण';
+
+                  rowsHTML += `
+                    <tr>
+                      <td>${escapeHtml(subject)}</td>
+                      <td>${writtenObtained}/${writtenFull}</td>
+                      <td>
+                        ${extraLabel
+                          ? escapeHtml(extraLabel) + ': ' + extraMarks
+                          : '—'}
+                      </td>
+                      <td>${subjectObtained}/${subjectFull}</td>
+                      <td>${statusText}</td>
+                    </tr>
+                  `;
+                });
+
+                if (missing === 0) {
+                  completedStudents++;
+                } else {
+                  allComplete = false;
+                }
+
+                const percentage = totalFull > 0
+                  ? (totalObtained / totalFull * 100).toFixed(2)
+                  : '0.00';
+const failedSubjectsCount = activeResultSubjects.filter(subject =>
+  String(
+    studentMarks[subject]?.['Subject Result'] || ''
+  ).toUpperCase() === 'FAIL'
+).length;
+
+const overallResultText =
+  failedSubjectsCount === 0
+    ? 'उत्तीर्ण'
+    : failedSubjectsCount <= 2
+      ? 'पूरक परीक्षा'
+      : 'अनुत्तीर्ण';
+                const summaryHTML = missing === 0
+                  ? `
+                    <div class="notice">
+                      <b>कुल प्राप्तांक:</b>
+                      ${totalObtained}/${totalFull}<br>
+                      <b>प्रतिशत:</b> ${percentage}%<br>
+                      <b>परिणाम:</b>
+                      ${overallResultText}
+                    </div>
+                  `
+                  : `
+                    <div class="notice" style="color:#b45309;">
+                      ${missing} विषय के अंक अभी बाकी हैं।
+                      अभी कुल परिणाम पूरा नहीं है।
+                    </div>
+                  `;
+
+                reportHTML += `
+                  <div class="notice" style="margin-top:16px;">
+                    <h4>
+                      ${studentIndex + 1}. 
+                      ${escapeHtml(student.studentName)}
+                    </h4>
+
+                    <div class="muted">
+                      रोल नंबर: ${escapeHtml(student.rollNumber || '—')}<br>
+                      पिता: ${escapeHtml(student.fatherName || '—')}
+                    </div>
+
+                    <div style="overflow-x:auto;margin-top:10px;">
+                      <table style="
+                        width:100%;
+                        border-collapse:collapse;
+                        font-size:12px;
+                        min-width:420px;
+                      ">
+                        <thead>
+                          <tr style="background:#eaf2fc;">
+                            <th style="padding:8px;border:1px solid #d8e2ef;">विषय</th>
+                            <th style="padding:8px;border:1px solid #d8e2ef;">लिखित</th>
+                            <th style="padding:8px;border:1px solid #d8e2ef;">अतिरिक्त</th>
+                            <th style="padding:8px;border:1px solid #d8e2ef;">कुल</th>
+                            <th style="padding:8px;border:1px solid #d8e2ef;">स्थिति</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          ${rowsHTML}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    ${summaryHTML}
+                  </div>
+                `;
+              });
+
+              content.innerHTML = reportHTML;
+
+              message.textContent =
+                'कुल विद्यार्थी: ' + students.length +
+                ' | पूरे अंक दर्ज: ' + completedStudents +
+                ' | अंक बाकी: ' + (students.length - completedStudents);
+
+              if (allComplete && students.length > 0) {
+                publishButton.disabled = false;
+                publishButton.textContent = 'रिजल्ट प्रकाशित करें';
+              } else {
+                publishButton.disabled = true;
+                publishButton.textContent = 'पहले सभी विद्यार्थियों के अंक भरें';
+              }
+
+              publishButton.onclick = function() {
+
+                if (!allComplete) {
+                  alert('सभी विद्यार्थियों के सभी विषयों के अंक पहले भरें।');
+                  return;
+                }
+
+                if (!confirm(
+                  'क्या आप इस परीक्षा का रिजल्ट प्रकाशित करना चाहते हैं? प्रकाशित होने के बाद परीक्षा लॉक हो जाएगी।'
+                )) {
+                  return;
+                }
+
+                publishButton.disabled = true;
+                publishButton.textContent = 'रिजल्ट प्रकाशित हो रहा है...';
+
+                callServer(
+                  'publishResult',
+                  [
+                    sessionToken,
+                    activeResultSession,
+                    activeResultClass,
+                    activeResultStream,
+                    activeResultExam
+                  ],
+                  function(result) {
+
+                    if (!result || !result.success) {
+                      message.textContent =
+                        result?.message || 'रिजल्ट प्रकाशित नहीं हुआ।';
+
+                      publishButton.disabled = false;
+                      publishButton.textContent = 'दोबारा प्रयास करें';
+                      return;
+                    }
+
+                    message.textContent =
+                      result.message || 'रिजल्ट प्रकाशित हो गया।';
+
+                    publishButton.textContent = '✅ रिजल्ट प्रकाशित और लॉक हो गया';
+                    publishButton.disabled = true;
+                  }
+                );
+              };
+            }
+          );
+        }
+      );
+    }
+  );
+}
+function openResultStudentEntry(student) {
+  const app = document.getElementById('resultApp');
+  if (!app) return;
+
+  if (!activeResultSubjects.length) {
+    alert('विषय चयन उपलब्ध नहीं है।');
+    return;
+  }
+
+  app.innerHTML = `
+    <div class="panel">
+      <h3>📝 विद्यार्थी के अंक दर्ज करें</h3>
+
+      <div class="notice">
+        <b>नाम:</b> ${escapeHtml(student.studentName)}<br>
+        <b>पिता:</b> ${escapeHtml(student.fatherName)}<br>
+        <b>रोल नंबर:</b> ${escapeHtml(student.rollNumber)}
+      </div>
+
+      <div id="studentMarksForm">
+        <div class="notice">अंक सेटिंग लोड हो रही है...</div>
+      </div>
+
+      <div id="studentMarksMessage"></div>
+
+      <button type="button" class="primary"
+        id="saveStudentMarksBtn">
+        अंक सुरक्षित करें
+      </button>
+
+      <button type="button" class="secondary"
+        style="width:100%;margin-top:12px;"
+        onclick="openResultMarksEntry()">
+        ← विद्यार्थी सूची में वापस जाएँ
+      </button>
+    </div>
+  `;
+
+  callServer(
+    'getResultSubjectSettings',
+    [
+      sessionToken,
+      activeResultSession,
+      activeResultClass,
+      activeResultStream,
+      activeResultExam
+    ],
+    function(response) {
+
+      const form = document.getElementById('studentMarksForm');
+
+      if (!response || !response.success) {
+        form.textContent = response?.message ||
+          'विषय अंक सेटिंग नहीं मिली।';
+        return;
+      }
+
+      const settingsMap = {};
+
+      (response.settings || []).forEach(item => {
+        settingsMap[item.subject] = item;
+      });
+
+      let html = '';
+
+      activeResultSubjects.forEach((subject, index) => {
+
+        const setting = settingsMap[subject];
+
+        if (!setting) {
+          html += `
+            <div class="notice">
+              ${escapeHtml(subject)} की अंक सेटिंग उपलब्ध नहीं है।
+            </div>
+          `;
+          return;
+        }
+
+        const evaluationType =
+          String(setting.evaluationType || '').toUpperCase();
+
+        const evaluationFullMarks =
+          Number(setting.evaluationFullMarks) || 0;
+
+        const hasEvaluation =
+          ['PRACTICAL', 'PROJECT'].includes(evaluationType) &&
+          evaluationFullMarks > 0;
+
+        const evaluationLabel =
+          evaluationType === 'PRACTICAL'
+            ? 'प्रैक्टिकल'
+            : 'प्रोजेक्ट';
+
+        html += `
+          <div class="notice" style="margin-bottom:14px;">
+            <h4>${index + 1}. ${escapeHtml(subject)}</h4>
+
+            <div class="muted">
+              लिखित पूर्णांक: ${Number(setting.fullMarks)} |
+              उत्तीर्णांक: ${Number(setting.passingMarks)}
+            </div>
+
+            <label>लिखित प्राप्तांक</label>
+            <input type="number"
+              id="writtenObtained_${index}"
+              min="0"
+              max="${Number(setting.fullMarks)}"
+              step="1"
+              placeholder="लिखित अंक भरें">
+
+            <label class="subject-option">
+              <input type="checkbox"
+                id="writtenAbsent_${index}">
+              अनुपस्थित
+            </label>
+
+            ${hasEvaluation ? `
+              <hr>
+
+              <b>${evaluationLabel}</b>
+
+              <div class="muted">
+                अधिकतम अंक: ${evaluationFullMarks}
+              </div>
+
+              <label>
+                ${evaluationLabel} प्राप्तांक
+              </label>
+
+              <input type="number"
+                id="evaluationObtained_${index}"
+                min="0"
+                max="${evaluationFullMarks}"
+                step="1"
+                placeholder="प्राप्तांक भरें">
+            ` : ''}
+          </div>
+        `;
+      });
+
+      form.innerHTML = html;
+
+      const saveButton = document.getElementById(
+        'saveStudentMarksBtn'
+      );
+
+      saveButton.onclick = function() {
+
+        const subjects = [];
+
+        for (let i = 0; i < activeResultSubjects.length; i++) {
+
+          const subject = activeResultSubjects[i];
+          const setting = settingsMap[subject];
+
+          if (!setting) {
+            alert(subject + ' की अंक सेटिंग उपलब्ध नहीं है।');
+            return;
+          }
+
+          const absent = document.getElementById(
+            `writtenAbsent_${i}`
+          ).checked;
+
+          const writtenRaw = document.getElementById(
+            `writtenObtained_${i}`
+          ).value.trim();
+
+          const writtenObtained = absent
+            ? 0
+            : Number(writtenRaw);
+
+          if (
+            !absent &&
+            (
+              writtenRaw === '' ||
+              !Number.isFinite(writtenObtained) ||
+              writtenObtained < 0 ||
+              writtenObtained > Number(setting.fullMarks)
+            )
+          ) {
+            alert(subject + ' के लिखित प्राप्तांक सही भरें।');
+            return;
+          }
+
+          const evaluationType =
+            String(setting.evaluationType || '').toUpperCase();
+
+          const hasEvaluation =
+            ['PRACTICAL', 'PROJECT'].includes(evaluationType);
+
+          let evaluationFullMarks = 0;
+          let evaluationObtained = 0;
+
+          if (hasEvaluation) {
+
+            evaluationFullMarks =
+              Number(setting.evaluationFullMarks) || 0;
+
+            const obtainedRaw = document.getElementById(
+              `evaluationObtained_${i}`
+            ).value.trim();
+
+            const isAnnual = activeResultExam === 'ANNUAL';
+
+evaluationObtained = obtainedRaw === ''
+  ? ''
+  : Number(obtainedRaw);
+
+if (
+  evaluationFullMarks <= 0 ||
+  (!isAnnual && obtainedRaw === '') ||
+  (
+    obtainedRaw !== '' &&
+    (
+      !Number.isFinite(evaluationObtained) ||
+      evaluationObtained < 0 ||
+      evaluationObtained > evaluationFullMarks
+    )
+  )
+) {
+              alert(
+                subject +
+                ' के ' +
+                (evaluationType === 'PRACTICAL'
+                  ? 'प्रैक्टिकल'
+                  : 'प्रोजेक्ट') +
+                ' प्राप्तांक सही भरें।'
+              );
+              return;
+            }
+          }
+
+          subjects.push({
+            subject: subject,
+            writtenFullMarks: Number(setting.fullMarks),
+            writtenPassMarks: Number(setting.passingMarks),
+            writtenObtained: writtenObtained,
+            writtenStatus: absent ? 'ABSENT' : '',
+            practicalFullMarks: evaluationFullMarks,
+            practicalObtained: evaluationObtained
+          });
+        }
+
+        const monthNames = {
+          M01: 'जुलाई',
+          M02: 'अगस्त',
+          M03: 'सितंबर',
+          M04: 'अक्टूबर',
+          M05: 'नवंबर',
+          M06: 'दिसंबर',
+          M07: 'जनवरी',
+          M08: 'फरवरी',
+          M09: 'मार्च'
+        };
+
+        const month = monthNames[activeResultExam] || '';
+
+        const examNames = {
+          QUARTERLY: 'त्रैमासिक',
+          HALF_YEARLY: 'अर्धवार्षिक',
+          PRE_BOARD: 'प्री-बोर्ड',
+          ANNUAL: 'वार्षिक'
+        };
+
+        const examName = month
+          ? 'मासिक परीक्षा - ' + month
+          : examNames[activeResultExam] || activeResultExam;
+
+        const payload = {
+          academicSession: activeResultSession,
+          className: activeResultClass,
+          stream: activeResultStream,
+          examId: activeResultExam,
+          examName: examName,
+          month: month,
+          studentName: student.studentName,
+          fatherName: student.fatherName,
+          examRollNo: student.rollNumber,
+          subjects: subjects
+        };
+
+        saveButton.disabled = true;
+        saveButton.textContent = 'अंक सुरक्षित हो रहे हैं...';
+
+        callServer(
+          'saveResultMarks',
+          [sessionToken, payload],
+          function(saveResponse) {
+
+            saveButton.disabled = false;
+            saveButton.textContent = 'अंक सुरक्षित करें';
+
+            const message = document.getElementById(
+              'studentMarksMessage'
+            );
+
+            if (!saveResponse || !saveResponse.success) {
+              message.className = 'message error';
+              message.textContent = saveResponse?.message ||
+                'अंक सुरक्षित नहीं हुए।';
+              return;
+            }
+
+            message.className = 'message success';
+            message.textContent =
+              saveResponse.message || 'अंक सुरक्षित हो गए।';
+          }
+        );
+      };
+    }
+  );
+}
+  function goMenu() {
+    history.pushState({ screen: 'menu' }, '', '#menu');
+    showScreen('menu');
+  }
+
+  function logout() {
+    currentUser = '';
+    currentPage = '';
+    authMode = 'login';
+    document.getElementById('authForm').classList.add('hidden');
+    clearMessage();
+    showScreen('login');
+    history.pushState({ screen: 'login' }, '', '#login');
+  }
+
+  window.addEventListener('popstate', function(event) {
+  var state = event.state;
+
+  if (state && state.screen === 'page' && pages[state.key]) {
+    currentPage = state.key;
+
+    document.getElementById('pageTitle').textContent = pages[state.key][0];
+    document.getElementById('pageDesc').textContent = pages[state.key][1];
+    document.getElementById('pageContent').innerHTML = pages[state.key][2];
+
+    showScreen('subpage');
+
+    if (state.key === 'teacher') {
+      loadTeacherDetails();
+    }
+
+    if (state.key === 'goswara') {
+      loadGoswaraData();
+    }
+    if (state.key === 'result') {
+  loadResultPage();
+}
+
+  } else if (state && state.screen === 'menu' && currentUser) {
+    showScreen('menu');
+
+  } else if (currentUser) {
+    showScreen('menu');
+
+  } else {
+    showScreen('login');
+  }
+});
+
+  document.querySelectorAll('[data-page]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      openPage(btn.getAttribute('data-page'));
+    });
+  });
+function runStudentSearch() {
+  var query = document.getElementById('studentQuery').value.trim();
+  var msg = document.getElementById('studentSearchMessage');
+  var results = document.getElementById('studentResults');
+
+  if (currentRole !== 'teacher') {
+    msg.textContent = 'यह सुविधा केवल शिक्षक के लिए है।';
+    return;
+  }
+
+  if (!query) {
+    msg.textContent = 'नाम या रोल नंबर भरें।';
+    return;
+  }
+
+  msg.textContent = 'विद्यार्थी खोजे जा रहे हैं…';
+  results.innerHTML = '';
+
+  callServer('searchStudents', [sessionToken, query, ''], function(result) {
+    if (!result || !result.success) {
+      msg.textContent = result && result.message
+        ? result.message : 'खोज में त्रुटि हुई।';
+      return;
+    }
+
+    msg.textContent = result.message || '';
+
+    if (!result.students || !result.students.length) return;
+
+    var nameIndex = result.headers.findIndex(function(header) {
+      return String(header).trim().toLowerCase() === 'student name';
+    });
+
+    result.students.forEach(function(row) {
+      var card = document.createElement('div');
+      card.className = 'noticeitem';
+      card.style.background = '#fff';
+      card.style.border = '1px solid #dce8f4';
+      card.style.borderRadius = '16px';
+      card.style.padding = '14px';
+      card.style.marginTop = '14px';
+      card.style.boxShadow = '0 5px 16px #123b7810';
+
+      var title = document.createElement('div');
+      title.textContent = nameIndex >= 0 && row[nameIndex]
+        ? row[nameIndex] : 'विद्यार्थी विवरण';
+      title.style.fontSize = '17px';
+      title.style.fontWeight = '800';
+      title.style.color = '#12366b';
+      title.style.marginBottom = '10px';
+      card.appendChild(title);
+
+      result.headers.forEach(function(header, index) {
+        var line = document.createElement('div');
+        line.style.padding = '8px 0';
+        line.style.borderBottom = '1px solid #edf2f7';
+        line.style.fontSize = '13px';
+        line.style.lineHeight = '1.6';
+        line.style.overflowWrap = 'anywhere';
+
+        var label = document.createElement('div');
+        label.textContent = header;
+        label.style.fontWeight = '700';
+        label.style.color = '#526b83';
+
+        var value = document.createElement('div');
+        value.textContent = row[index] == null || row[index] === ''
+          ? '—' : row[index];
+        value.style.color = '#173454';
+        value.style.overflowWrap = 'anywhere';
+
+        line.appendChild(label);
+        line.appendChild(value);
+        card.appendChild(line);
+      });
+
+      results.appendChild(card);
+    });
+  });
+}
+</script>
+</body>
+</html>
