@@ -1,10 +1,14 @@
-const CACHE_NAME = "smart-school-pwa-test-v2";
+
+const CACHE_NAME = "smart-school-pwa-v3";
+
+const BASE_URL = self.registration.scope;
+
 const APP_SHELL = [
-  "/",
-  "/index.html",
-  "/manifest.json",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png"
+  new URL("./", BASE_URL).href,
+  new URL("./index.html", BASE_URL).href,
+  new URL("./manifest.json", BASE_URL).href,
+  new URL("./icons/icon-192.png", BASE_URL).href,
+  new URL("./icons/icon-512.png", BASE_URL).href
 ];
 
 self.addEventListener("install", event => {
@@ -19,7 +23,9 @@ self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys()
       .then(keys => Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+        keys
+          .filter(key => key.startsWith("smart-school-pwa-") && key !== CACHE_NAME)
+          .map(key => caches.delete(key))
       ))
       .then(() => self.clients.claim())
   );
@@ -27,36 +33,46 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   const request = event.request;
+
   if (request.method !== "GET") return;
 
   const url = new URL(request.url);
+
   if (url.origin !== self.location.origin) return;
 
-  // Page navigation: try network first so users receive the latest page;
-  // show the cached app shell when the device is offline.
+  if (!url.href.startsWith(BASE_URL)) return;
+
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
         .then(response => {
           if (response && response.ok) {
             const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put("/", copy));
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(new URL("./", BASE_URL).href, copy);
+            });
           }
           return response;
         })
-        .catch(() => caches.match("/").then(cached => cached || caches.match("/index.html")))
+        .catch(async () => {
+          const cache = await caches.open(CACHE_NAME);
+          return await cache.match(new URL("./", BASE_URL).href)
+            || await cache.match(new URL("./index.html", BASE_URL).href);
+        })
     );
     return;
   }
 
-  // Static same-origin files: use cache first, then network and save a copy.
   event.respondWith(
     caches.match(request).then(cached => {
       if (cached) return cached;
+
       return fetch(request).then(response => {
         if (response && response.ok) {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(request, copy);
+          });
         }
         return response;
       });
